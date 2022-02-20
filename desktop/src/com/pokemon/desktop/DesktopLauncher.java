@@ -2,14 +2,14 @@ package com.pokemon.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.pokemon.Pokemon;
+import com.pokemon.view.Pokemon;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Pokemon";
-		config.forceExit = false;
-		config.vSyncEnabled = true;
-		new LwjglApplication(new Pokemon(), config);
-	}
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "Pokemon";
+        config.forceExit = false;
+        config.vSyncEnabled = true;
+        new LwjglApplication(new Pokemon(), config);
+    }
 }
