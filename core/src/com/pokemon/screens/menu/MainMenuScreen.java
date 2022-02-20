@@ -1,4 +1,4 @@
-package com.pokemon.screens;
+package com.pokemon.screens.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pokemon.Pokemon;
 
-public class MainMenu implements Screen {
+public class MainMenuScreen implements Screen {
     private final Pokemon pokemon;
     private final Stage stage;
     private final TextureAtlas atlas;
@@ -30,7 +30,7 @@ public class MainMenu implements Screen {
     private final BitmapFont black;
     private final Label heading;
 
-    public MainMenu(Pokemon pokemon) {
+    public MainMenuScreen(Pokemon pokemon) {
         this.pokemon = pokemon;
         stage = new Stage();
         atlas = new TextureAtlas("atlas/atlas.pack");

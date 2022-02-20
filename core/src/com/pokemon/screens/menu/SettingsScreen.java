@@ -1,4 +1,4 @@
-package com.pokemon.screens;
+package com.pokemon.screens.menu;
 
 import com.badlogic.gdx.Screen;
 

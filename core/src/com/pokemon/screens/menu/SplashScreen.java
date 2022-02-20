@@ -1,4 +1,4 @@
-package com.pokemon.screens;
+package com.pokemon.screens.menu;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -12,13 +12,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pokemon.Pokemon;
 import com.pokemon.tween.SpriteAccessor;
 
-public class Splash implements Screen {
+public class SplashScreen implements Screen {
     private final Pokemon pokemon;
     private final SpriteBatch batch;
     private Sprite sprite;
     private final TweenManager manager;
 
-    public Splash(Pokemon pokemon) {
+    public SplashScreen(Pokemon pokemon) {
         this.pokemon = pokemon;
         manager = new TweenManager();
         batch = pokemon.getBatch();
@@ -34,7 +34,7 @@ public class Splash implements Screen {
         Tween.to(sprite, SpriteAccessor.ALPHA, 2).target(1).repeatYoyo(1, 2).setCallback(new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
-                pokemon.setScreen(new MainMenu(pokemon));
+                pokemon.setScreen(new MainMenuScreen(pokemon));
             }
         }).start(manager);
     }
