@@ -6,7 +6,6 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,10 +13,10 @@ import com.pokemon.Pokemon;
 import com.pokemon.tween.SpriteAccessor;
 
 public class Splash implements Screen {
-    private Pokemon pokemon;
-    private SpriteBatch batch;
+    private final Pokemon pokemon;
+    private final SpriteBatch batch;
     private Sprite sprite;
-    private TweenManager manager;
+    private final TweenManager manager;
 
     public Splash(Pokemon pokemon) {
         this.pokemon = pokemon;
@@ -28,7 +27,7 @@ public class Splash implements Screen {
 
     @Override
     public void show() {
-        sprite = new Sprite(new Texture(Gdx.files.internal("core/assets/badlogic.jpg")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("core/assets/images/logo.png")));
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Tween.set(sprite, SpriteAccessor.ALPHA).target(0).start(manager);
@@ -42,9 +41,6 @@ public class Splash implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         manager.update(delta);
 
         batch.begin();
