@@ -1,11 +1,11 @@
-package com.pokemon.screens.game;
+package com.pokemon.view.screens.menu;
 
 import com.badlogic.gdx.Screen;
 
-public class GameScreen implements Screen {
+public class SettingsScreen implements Screen {
     @Override
     public void show() {
-        
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.pokemon.screens.menu;
+package com.pokemon.view.screens.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.pokemon.Pokemon;
+import com.pokemon.view.Pokemon;
+import com.pokemon.view.screens.game.GameScreen;
 
 public class MainMenuScreen implements Screen {
     private final Pokemon pokemon;
@@ -30,7 +31,7 @@ public class MainMenuScreen implements Screen {
     private final BitmapFont black;
     private final Label heading;
 
-    public MainMenuScreen(Pokemon pokemon) {
+    public MainMenuScreen(final Pokemon pokemon) {
         this.pokemon = pokemon;
         stage = new Stage();
         atlas = new TextureAtlas("atlas/atlas.pack");
@@ -71,7 +72,7 @@ public class MainMenuScreen implements Screen {
         joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                pokemon.setScreen(new GameScreen(pokemon));
             }
         });
         settingsButton.addListener(new ClickListener() {

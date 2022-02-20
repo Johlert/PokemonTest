@@ -1,8 +1,8 @@
-package com.pokemon.screens.menu;
+package com.pokemon.view.screens.menu;
 
 import com.badlogic.gdx.Screen;
 
-public class HostScreen implements Screen {
+public class JoinScreen implements Screen {
     @Override
     public void show() {
 

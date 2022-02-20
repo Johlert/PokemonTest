@@ -1,4 +1,4 @@
-package com.pokemon.screens.menu;
+package com.pokemon.view.screens.menu;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -9,14 +9,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.pokemon.Pokemon;
-import com.pokemon.tween.SpriteAccessor;
+import com.pokemon.view.Pokemon;
+import com.pokemon.view.tween.*;
 
 public class SplashScreen implements Screen {
     private final Pokemon pokemon;
     private final SpriteBatch batch;
-    private Sprite sprite;
     private final TweenManager manager;
+    private Sprite sprite;
 
     public SplashScreen(Pokemon pokemon) {
         this.pokemon = pokemon;
@@ -27,7 +27,7 @@ public class SplashScreen implements Screen {
 
     @Override
     public void show() {
-        sprite = new Sprite(new Texture(Gdx.files.internal("core/assets/images/logo.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("core/assets/images/pokeball.png")));
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Tween.set(sprite, SpriteAccessor.ALPHA).target(0).start(manager);
