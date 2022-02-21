@@ -79,6 +79,20 @@ public @Data class Player implements Serializable, Trainer, Listener {
             if(moveEvent.getDirection().equals(Direction.RIGHT)){
                 move(Global.TILE_SIZE, 0);
             }
+        }else {
+            if(moveEvent.getDirection().equals(Direction.UP)){
+                moveEvent.getP().move(0, Global.TILE_SIZE);
+            }
+            if(moveEvent.getDirection().equals(Direction.DOWN)){
+                moveEvent.getP().move(0, -Global.TILE_SIZE);
+            }
+            if(moveEvent.getDirection().equals(Direction.LEFT)){
+                moveEvent.getP().move(-Global.TILE_SIZE, 0);
+            }
+            if(moveEvent.getDirection().equals(Direction.RIGHT)){
+                moveEvent.getP().move(Global.TILE_SIZE, 0);
+            }
+
         }
 
     }
