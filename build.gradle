@@ -1,6 +1,4 @@
 buildscript {
-    
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -9,8 +7,6 @@ buildscript {
         google()
     }
     dependencies {
-        
-
     }
 }
 
@@ -49,7 +45,6 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.2.5"
-        
     }
 }
 
@@ -60,6 +55,7 @@ project(":core") {
     dependencies {
         implementation "org.mini2Dx:universal-tween-engine:6.3.3"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.0"
@@ -67,6 +63,11 @@ project(":core") {
         api "net.dermetfan.libgdx-utils:libgdx-utils:0.13.4"
         api "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.4"
         api "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5"
-        
+
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
     }
 }
