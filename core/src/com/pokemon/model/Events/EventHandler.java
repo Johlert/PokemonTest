@@ -21,6 +21,8 @@ public class EventHandler extends Thread{
 
                     if(event instanceof MoveEvent){
                         listener.onMove((MoveEvent) event);
+                    }else if(event instanceof  MapJoinEvent){
+
                     }
 
                     //todo add event calling for rest of the events

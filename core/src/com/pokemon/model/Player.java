@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.pokemon.controller.UserSettings;
 import com.pokemon.model.Events.Listener;
+import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Pokemon.Pokemon;
 import com.pokemon.model.Pokemon.Trainer;
@@ -95,5 +96,9 @@ public @Data class Player implements Serializable, Trainer, Listener {
 
         }
 
+    }
+
+    @Override
+    public void onMapJoin(MapJoinEvent mapJoinEvent) {
     }
 }
