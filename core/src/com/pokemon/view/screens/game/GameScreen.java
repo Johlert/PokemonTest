@@ -15,8 +15,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pokemon.controller.PlayerController;
+import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Player;
-import com.pokemon.model.Settings;
+import com.pokemon.model.Global;
 import com.pokemon.view.Pokemon;
 
 public class GameScreen implements Screen {
@@ -53,11 +54,11 @@ public class GameScreen implements Screen {
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("E:\\Poke\\Prämap\\maps\\PRZCITY.TMX");
+        map = mapLoader.load("D:\\Poke\\Prämap\\maps\\PRZCITY.TMX");
         renderer = new OrthogonalTiledMapRendererWithSprites(map, batch);
 
         playerLayer = map.getLayers().get("Entity Layer");
-        textureRegion = new TextureRegion(texture, 16, 24);
+        textureRegion = new TextureRegion(texture, Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
 
         TextureMapObject tmo = new TextureMapObject(textureRegion);
         tmo.setX(0);
@@ -65,6 +66,8 @@ public class GameScreen implements Screen {
 
         playerLayer.getObjects().add(tmo);
         player = new Player(map, tmo, 0, 0);
+        CacheForPoke.getInstance().setLocalP(player);
+        CacheForPoke.getInstance().getHandler().addListener(player);
         controller = new PlayerController(player);
         Gdx.input.setInputProcessor(controller);
     }
@@ -72,7 +75,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         handleInput(delta);
-        gameCam.position.set(player.getX() + Settings.TILE_SIZE / 2f, player.getY() + Settings.TILE_SIZE / 2f, 0);
+        gameCam.position.set(player.getX() + Global.TILE_SIZE / 2f, player.getY() + Global.TILE_SIZE / 2f, 0);
         gameCam.update();
         renderer.setView(gameCam);
         renderer.render();
