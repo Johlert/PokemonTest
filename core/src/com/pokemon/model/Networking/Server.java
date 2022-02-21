@@ -33,9 +33,18 @@ public class Server implements PostOffice{
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Socket socket = server.accept(new SocketHints());
+                while(true){
+                    Socket socket = server.accept(new SocketHints());
+                    try {
+                        new Connection(socket);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
+        t.start();
     }
 
 
@@ -47,6 +56,7 @@ public class Server implements PostOffice{
         @SneakyThrows
         public Connection(Socket s) throws Exception{
             socket = s;
+            System.out.println(2);
             final ObjectInputStream objectInputStream = new ObjectInputStream(s.getInputStream());
             System.out.println(3);
             String name = (String) objectInputStream.readObject();
