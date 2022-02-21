@@ -66,18 +66,20 @@ public @Data class Player implements Serializable, Trainer, Listener {
 
     @Override
     public void onMove(MoveEvent moveEvent) {
-        System.out.println("on move");
-        if(moveEvent.getDirection().equals(Direction.UP)){
-            move(0, Global.TILE_SIZE);
+        if(moveEvent.getP().equals(this)){
+            if(moveEvent.getDirection().equals(Direction.UP)){
+                move(0, Global.TILE_SIZE);
+            }
+            if(moveEvent.getDirection().equals(Direction.DOWN)){
+                move(0, -Global.TILE_SIZE);
+            }
+            if(moveEvent.getDirection().equals(Direction.LEFT)){
+                move(-Global.TILE_SIZE, 0);
+            }
+            if(moveEvent.getDirection().equals(Direction.RIGHT)){
+                move(Global.TILE_SIZE, 0);
+            }
         }
-        if(moveEvent.getDirection().equals(Direction.DOWN)){
-            move(0, -Global.TILE_SIZE);
-        }
-        if(moveEvent.getDirection().equals(Direction.LEFT)){
-            move(-Global.TILE_SIZE, 0);
-        }
-        if(moveEvent.getDirection().equals(Direction.RIGHT)){
-            move(Global.TILE_SIZE, 0);
-        }
+
     }
 }

@@ -9,9 +9,9 @@ public class EventHandler extends Thread{
 
     @Override
     public void run() {
+        System.out.println("Event handler started");
         //here the events are used to call the methods
         while (isRunning){
-
             if(EventQueue.getINSTANCE().getEvents().size() != 0){
 
                 //if there is an event in the event queue then it gets popped and the listeners get called
