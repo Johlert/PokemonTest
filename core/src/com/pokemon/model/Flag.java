@@ -1,6 +1,8 @@
 package com.pokemon.model;
 
-public class Flag {
+import java.io.Serializable;
+
+public class Flag implements Serializable {
     //a flag is used to track progress of the player and can have mutiple states
 
     private String name;

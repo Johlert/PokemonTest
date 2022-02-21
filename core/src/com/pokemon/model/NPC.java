@@ -1,5 +1,7 @@
 package com.pokemon.model;
 
-public class NPC {
+import java.io.Serializable;
+
+public class NPC implements Serializable {
     //todo
 }

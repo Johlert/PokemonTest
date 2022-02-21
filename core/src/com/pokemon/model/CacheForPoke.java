@@ -5,6 +5,8 @@ import com.pokemon.model.Items.Item;
 import com.pokemon.model.Networking.PostOffice;
 import com.pokemon.model.Pokemon.Gen;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
 

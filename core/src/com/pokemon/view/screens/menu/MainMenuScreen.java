@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -70,7 +71,7 @@ public class MainMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 CacheForPoke.getInstance().setPostOffice(new Server());
-                pokemon.setScreen(new GameScreen(pokemon));
+                pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load("C:\\Users\\micro\\Desktop\\Prämap\\maps\\PRZCITY.TMX")));
             }
         });
         joinButton.addListener(new ClickListener() {
@@ -79,7 +80,7 @@ public class MainMenuScreen implements Screen {
                 Client client = new Client();
                 CacheForPoke.getInstance().setPostOffice(client);
                 System.out.println("connect: " + client.connect("localhost", "egal"));
-                pokemon.setScreen(new GameScreen(pokemon));
+                pokemon.setScreen(new GameScreen(pokemon, CacheForPoke.getInstance().getLocalP().getMap()));
             }
         });
         settingsButton.addListener(new ClickListener() {

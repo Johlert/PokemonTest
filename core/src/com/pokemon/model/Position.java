@@ -1,6 +1,8 @@
 package com.pokemon.model;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     //this a data class in which
 
     private int x;

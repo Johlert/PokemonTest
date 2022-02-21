@@ -7,9 +7,11 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
+import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Player;
+import com.pokemon.view.screens.game.GameScreen;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -46,15 +48,21 @@ public class Server implements PostOffice{
         public Connection(Socket s) throws Exception{
             socket = s;
             final ObjectInputStream objectInputStream = new ObjectInputStream(s.getInputStream());
+            System.out.println(3);
             String name = (String) objectInputStream.readObject();
+            System.out.println(name);
             if(connections.containsKey(name)){
                 socket.dispose();
                 return;
             }else {
                 connections.put(name, this);
             }
+            System.out.println(2);
             //todo load player from save if required else send new Player
+            player = new Player(CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
+            System.out.println(3);
             send(player);
+            System.out.println(4);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

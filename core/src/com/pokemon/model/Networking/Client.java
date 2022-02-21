@@ -50,8 +50,11 @@ public class Client implements PostOffice {
         public Listener(Socket s, String localPlayer) {
             socket = s;
             send(localPlayer);
+            System.out.println(3);
             final ObjectInputStream objectInputStream = new ObjectInputStream(s.getInputStream());
+            System.out.println(1);
             Player player = (Player) objectInputStream.readObject();
+            System.out.println(2);
             CacheForPoke.getInstance().setLocalP(player);
             new Thread(new Runnable() {
                 @Override

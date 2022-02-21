@@ -1,6 +1,8 @@
 package com.pokemon.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     //todo
     private int x;
     private int y;

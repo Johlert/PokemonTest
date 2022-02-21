@@ -40,9 +40,10 @@ public class GameScreen implements Screen {
     private MapLayer playerLayer;
     private TextureRegion textureRegion;
 
-    public GameScreen(Pokemon pokemon) {
+    public GameScreen(Pokemon pokemon, TiledMap map) {
         this.pokemon = pokemon;
         texture = new Texture("purple_stand_south.png");
+        this.map = map;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class GameScreen implements Screen {
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("C:\\Users\\micro\\Desktop\\Prämap\\maps\\PRZCITY.TMX");
+
         renderer = new OrthogonalTiledMapRendererWithSprites(map, batch);
 
         playerLayer = map.getLayers().get("Entity Layer");
