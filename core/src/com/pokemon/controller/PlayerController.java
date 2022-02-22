@@ -6,13 +6,18 @@ import com.pokemon.model.Direction;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Player;
+import com.pokemon.view.Pokemon;
+import com.pokemon.view.screens.game.GameScreen;
 
 public class PlayerController extends InputAdapter {
+    private GameScreen gameScreen;
     private final Player player;
 
-    public PlayerController(Player player) {
+    public PlayerController(GameScreen gameScreen, Player player) {
+        this.gameScreen = gameScreen;
         this.player = player;
     }
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -40,6 +45,7 @@ public class PlayerController extends InputAdapter {
             EventQueue.getINSTANCE().addEvent(mv);
         }
 
+        gameScreen.render(0.016f);
         return false;
     }
 }

@@ -3,6 +3,7 @@ package com.pokemon.view.screens.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -69,7 +70,7 @@ public class GameScreen implements Screen {
         player = new Player(map, tmo, 0, 0);
         CacheForPoke.getInstance().setLocalP(player);
         CacheForPoke.getInstance().getHandler().addListener(player);
-        controller = new PlayerController(player);
+        controller = new PlayerController(this, player);
         Gdx.input.setInputProcessor(controller);
     }
 
