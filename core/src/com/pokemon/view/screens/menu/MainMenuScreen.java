@@ -70,6 +70,7 @@ public class MainMenuScreen implements Screen {
         hostButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("hosting");
                 CacheForPoke.getInstance().setPostOffice(new Server());
                 pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load("E:\\Poke\\Prämap\\maps\\PRZCITY.TMX")));
             }
@@ -77,6 +78,7 @@ public class MainMenuScreen implements Screen {
         joinButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("joining");
                 Client client = new Client();
                 CacheForPoke.getInstance().setPostOffice(client);
                 System.out.println("connect: " + client.connect("localhost", "egal"));
