@@ -6,46 +6,83 @@ import com.pokemon.model.Direction;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Player;
-import com.pokemon.view.Pokemon;
 import com.pokemon.view.screens.game.GameScreen;
 
 public class PlayerController extends InputAdapter {
     private GameScreen gameScreen;
     private final Player player;
+    private boolean up, down, left, right;
 
     public PlayerController(GameScreen gameScreen, Player player) {
         this.gameScreen = gameScreen;
         this.player = player;
     }
 
-
     @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == player.getUserSettings().getMoveForward()) {
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.UP);
-            CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            EventQueue.getINSTANCE().addEvent(mv);
+    public boolean keyUp(int keycode) {
+        if (keycode == player.getUserSettings().getMoveUp()) {
+            up = false;
         }
 
         if (keycode == player.getUserSettings().getMoveDown()) {
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.DOWN);
-            CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            EventQueue.getINSTANCE().addEvent(mv);
+            down = false;
         }
 
         if (keycode == player.getUserSettings().getMoveLeft()) {
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.LEFT);
-            CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            EventQueue.getINSTANCE().addEvent(mv);
+            left = false;
         }
 
         if (keycode == player.getUserSettings().getMoveRight()) {
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.RIGHT);
-            CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            EventQueue.getINSTANCE().addEvent(mv);
+            right = false;
         }
 
-        gameScreen.render(0.016f);
         return false;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == player.getUserSettings().getMoveUp()) {
+            up = true;
+        }
+
+        if (keycode == player.getUserSettings().getMoveDown()) {
+            down = true;
+        }
+
+        if (keycode == player.getUserSettings().getMoveLeft()) {
+            left = true;
+        }
+
+        if (keycode == player.getUserSettings().getMoveRight()) {
+            right = true;
+        }
+
+        return false;
+    }
+
+    public void update(float delta) {
+        if (up) {
+            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.UP);
+            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+            //EventQueue.getINSTANCE().addEvent(mv);
+            player.move(Direction.UP);
+        } else if (down) {
+            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.DOWN);
+            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+            //EventQueue.getINSTANCE().addEvent(mv);
+            player.move(Direction.DOWN);
+        } else if (left) {
+            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.LEFT);
+            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+            //EventQueue.getINSTANCE().addEvent(mv);
+            player.move(Direction.LEFT);
+        } else if (right) {
+            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.RIGHT);
+            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+            //EventQueue.getINSTANCE().addEvent(mv);
+            player.move(Direction.RIGHT);
+        }
+
+        gameScreen.renderMap(delta);
     }
 }
