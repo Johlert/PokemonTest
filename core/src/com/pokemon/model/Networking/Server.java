@@ -70,6 +70,8 @@ public class Server implements PostOffice{
             System.out.println(2);
             //todo load player from save if required else send new Player
             player = new Player(CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
+
+
             System.out.println(3);
             send(player);
             System.out.println(4);

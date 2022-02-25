@@ -3,6 +3,7 @@ package com.pokemon.model.Networking;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglNet;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
 import com.pokemon.model.CacheForPoke;
@@ -56,6 +57,10 @@ public class Client implements PostOffice {
             Player player = (Player) objectInputStream.readObject();
             System.out.println(2);
             CacheForPoke.getInstance().setLocalP(player);
+
+
+
+            player.setMap(new TmxMapLoader().load("D:\\Poke\\Prämap\\maps\\PRZCITY.TMX"));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
