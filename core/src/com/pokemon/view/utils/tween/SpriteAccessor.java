@@ -1,4 +1,4 @@
-package com.pokemon.view.tween;
+package com.pokemon.view.utils.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
