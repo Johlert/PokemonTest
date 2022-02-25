@@ -72,7 +72,7 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("hosting");
                 CacheForPoke.getInstance().setPostOffice(new Server());
-                pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load("E:\\Poke\\Prämap\\maps\\PRZCITY.TMX")));
+                pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load("D:\\Poke\\Prämap\\maps\\PRZCITY.TMX")));
             }
         });
         joinButton.addListener(new ClickListener() {
