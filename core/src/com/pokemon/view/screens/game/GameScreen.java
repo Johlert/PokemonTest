@@ -3,15 +3,15 @@ package com.pokemon.view.screens.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -20,10 +20,11 @@ import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Player;
 import com.pokemon.model.Global;
 import com.pokemon.view.Pokemon;
+import com.pokemon.view.utils.AnimationSet;
 
 public class GameScreen implements Screen {
-    public static final int V_WIDTH = 1200;
-    public static final int V_HEIGHT = 928;
+    public static final int V_WIDTH = 400;
+    public static final int V_HEIGHT = 310;
     private final Pokemon pokemon;
     private SpriteBatch batch;
 
@@ -35,7 +36,6 @@ public class GameScreen implements Screen {
     private Viewport gamePort;
     private OrthographicCamera gameCam;
 
-    private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private MapLayer playerLayer;
@@ -55,8 +55,6 @@ public class GameScreen implements Screen {
         gamePort = new FitViewport(V_WIDTH, V_HEIGHT, gameCam);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        mapLoader = new TmxMapLoader();
-
         renderer = new OrthogonalTiledMapRendererWithSprites(map, batch);
 
         playerLayer = map.getLayers().get("Entity Layer");
@@ -67,7 +65,18 @@ public class GameScreen implements Screen {
         tmo.setY(0);
 
         playerLayer.getObjects().add(tmo);
-        player = new Player(map, tmo, 0, 0);
+        player = new Player(map, tmo, 54, 8);
+        TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
+        String color = "brown";
+        player.setAnimationSet(new AnimationSet(
+                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
+                atlas.findRegion(color + "_stand_north"),
+                atlas.findRegion(color + "_stand_south"),
+                atlas.findRegion(color + "_stand_east"),
+                atlas.findRegion(color + "_stand_west")));
         CacheForPoke.getInstance().setLocalP(player);
         CacheForPoke.getInstance().getHandler().addListener(player);
         controller = new PlayerController(this, player);
@@ -77,6 +86,13 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         handleInput(delta);
+        controller.update(delta);
+        player.getTmo().setTextureRegion(player.getSprite());
+        renderMap(delta);
+    }
+
+    public void renderMap(float delta){
+        player.update(delta);
         gameCam.position.set(player.getX() + Global.TILE_SIZE / 2f, player.getY() + Global.TILE_SIZE / 2f, 0);
         gameCam.update();
         renderer.setView(gameCam);
