@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,8 +16,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pokemon.controller.PlayerController;
 import com.pokemon.model.CacheForPoke;
-import com.pokemon.model.Player;
 import com.pokemon.model.Global;
+import com.pokemon.model.Player;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.AnimationSet;
 
@@ -31,19 +30,17 @@ public class GameScreen implements Screen {
     private PlayerController controller;
 
     private Player player;
-    private final Texture texture;
 
     private Viewport gamePort;
     private OrthographicCamera gameCam;
 
-    private TiledMap map;
+    private final TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private MapLayer playerLayer;
     private TextureRegion textureRegion;
 
     public GameScreen(Pokemon pokemon, TiledMap map) {
         this.pokemon = pokemon;
-        texture = new Texture("purple_stand_south.png");
         this.map = map;
     }
 
@@ -57,8 +54,11 @@ public class GameScreen implements Screen {
 
         renderer = new OrthogonalTiledMapRendererWithSprites(map, batch);
 
+        TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
+        String color = "brown";
+
         playerLayer = map.getLayers().get("Entity Layer");
-        textureRegion = new TextureRegion(texture, Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
+        textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
 
         TextureMapObject tmo = new TextureMapObject(textureRegion);
         tmo.setX(0);
@@ -66,19 +66,20 @@ public class GameScreen implements Screen {
 
         playerLayer.getObjects().add(tmo);
         player = new Player(map, tmo, 54, 8);
-        TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
-        String color = "brown";
+
         player.setAnimationSet(new AnimationSet(
-                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
-                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
-                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
-                new Animation(0.5f/2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
+                new Animation(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
                 atlas.findRegion(color + "_stand_north"),
                 atlas.findRegion(color + "_stand_south"),
                 atlas.findRegion(color + "_stand_east"),
                 atlas.findRegion(color + "_stand_west")));
+
         CacheForPoke.getInstance().setLocalP(player);
         CacheForPoke.getInstance().getHandler().addListener(player);
+
         controller = new PlayerController(this, player);
         Gdx.input.setInputProcessor(controller);
     }
@@ -91,7 +92,7 @@ public class GameScreen implements Screen {
         renderMap(delta);
     }
 
-    public void renderMap(float delta){
+    public void renderMap(float delta) {
         player.update(delta);
         gameCam.position.set(player.getX() + Global.TILE_SIZE / 2f, player.getY() + Global.TILE_SIZE / 2f, 0);
         gameCam.update();
