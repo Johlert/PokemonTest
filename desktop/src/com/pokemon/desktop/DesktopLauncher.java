@@ -9,7 +9,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "Pokemon";
         config.forceExit = false;
-        config.vSyncEnabled = true;
+        config.vSyncEnabled = false;
+        config.foregroundFPS = 200;
         new LwjglApplication(new Pokemon(), config);
     }
 }
