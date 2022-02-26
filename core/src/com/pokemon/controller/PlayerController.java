@@ -62,24 +62,12 @@ public class PlayerController extends InputAdapter {
 
     public void update(float delta) {
         if (up) {
-            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.UP);
-            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            //EventQueue.getINSTANCE().addEvent(mv);
             player.move(Direction.UP);
         } else if (down) {
-            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.DOWN);
-            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            //EventQueue.getINSTANCE().addEvent(mv);
             player.move(Direction.DOWN);
         } else if (left) {
-            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.LEFT);
-            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            //EventQueue.getINSTANCE().addEvent(mv);
             player.move(Direction.LEFT);
         } else if (right) {
-            //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), Direction.RIGHT);
-            //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-            //EventQueue.getINSTANCE().addEvent(mv);
             player.move(Direction.RIGHT);
         }
 

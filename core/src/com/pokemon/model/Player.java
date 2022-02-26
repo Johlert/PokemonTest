@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Interpolation;
 import com.pokemon.controller.UserSettings;
+import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
@@ -100,7 +101,9 @@ class Player implements Serializable, Trainer, Listener {
     }
 
     private void initializeMove(int x1, int y1, Direction dir) {
-        System.out.println(1);
+        MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), dir);
+        CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+        EventQueue.getINSTANCE().addEvent(mv);
         this.facing = dir;
         srcX = x1;
         srcY = y1;
@@ -127,9 +130,6 @@ class Player implements Serializable, Trainer, Listener {
                 curWalkDur -= leftOverTime;
                 finishMove();
                 if (moveRequestThisFrame) {
-                    //MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), facing);
-                    //CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-                    //EventQueue.getINSTANCE().addEvent(mv);
                     move(facing);
                 } else {
                     curWalkDur = 0f;
