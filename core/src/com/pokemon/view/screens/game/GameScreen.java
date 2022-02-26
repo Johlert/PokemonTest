@@ -109,6 +109,11 @@ public class GameScreen implements Screen {
             gameCam.viewportHeight -= V_HEIGHT * dt;
             gameCam.viewportWidth -= V_WIDTH * dt;
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)){
+            player.setANIM_DUR(0.1f);
+        } else {
+            player.setANIM_DUR(0.5f);
+        }
     }
 
     @Override
