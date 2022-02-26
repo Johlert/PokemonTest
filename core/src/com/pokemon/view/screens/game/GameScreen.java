@@ -38,6 +38,7 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private MapLayer playerLayer;
     private TextureRegion textureRegion;
+    private boolean collisionVisible = false;
 
     public GameScreen(Pokemon pokemon, TiledMap map) {
         this.pokemon = pokemon;
@@ -113,6 +114,10 @@ public class GameScreen implements Screen {
             player.setANIM_DUR(0.1f);
         } else {
             player.setANIM_DUR(0.5f);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F12)){
+            collisionVisible = !collisionVisible;
+            map.getLayers().get("Collision Layer").setVisible(collisionVisible);
         }
     }
 
