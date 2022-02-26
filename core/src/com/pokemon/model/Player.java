@@ -19,7 +19,7 @@ import java.util.LinkedList;
 
 public @Data
 class Player implements Serializable, Trainer, Listener {
-    private final float ANIM_DUR = 0.5f;
+    private float ANIM_DUR = 0.5f;
     private UserSettings userSettings = new UserSettings();
     private TiledMap map;
     private TextureMapObject tmo;
