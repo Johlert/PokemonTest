@@ -45,6 +45,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.2.5"
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -65,6 +66,7 @@ project(":core") {
         api "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5"
 
         compileOnly 'org.projectlombok:lombok:1.18.22'
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
         testCompileOnly 'org.projectlombok:lombok:1.18.22'
