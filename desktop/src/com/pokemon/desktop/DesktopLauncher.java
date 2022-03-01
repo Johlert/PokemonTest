@@ -8,7 +8,9 @@ public class DesktopLauncher {
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "Pokemon";
-        config.forceExit = false;
+        config.height = 670;
+        config.width = 960;
+        config.forceExit = true;
         config.vSyncEnabled = false;
         config.foregroundFPS = 200;
         new LwjglApplication(new Pokemon(), config);
