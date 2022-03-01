@@ -15,11 +15,13 @@ public class Duel {
     public void setTrainer1Move(Ability trainer1Move) {
         this.trainer1Move = trainer1Move;
         hasP1Moved = true;
+        resolveRound();
     }
 
     public void setTrainer2Move(Ability trainer2Move) {
         this.trainer2Move = trainer2Move;
         hasP2Moved = true;
+        resolveRound();
     }
 
     private void resolveRound(){

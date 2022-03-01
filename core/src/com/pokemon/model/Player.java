@@ -29,7 +29,7 @@ class Player implements Serializable, Trainer, Listener {
     private Inventory inventory;
     private Pokemon[] pokemon;
     private Pokemon activePokemon;
-    private Location location;
+    private Position position;
     private int money;
     private LinkedList<Flag> flags;
     private int speedInTilesPerSec = 2;
