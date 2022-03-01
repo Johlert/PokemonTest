@@ -11,10 +11,9 @@ import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Player;
 import lombok.SneakyThrows;
+import sun.security.util.IOUtils;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class Client implements PostOffice {
 
@@ -54,13 +53,40 @@ public class Client implements PostOffice {
             System.out.println(3);
             final ObjectInputStream objectInputStream = new ObjectInputStream(s.getInputStream());
             System.out.println(1);
-            Player player = (Player) objectInputStream.readObject();
+            //Player player = (Player) objectInputStream.readObject();
             System.out.println(2);
-            CacheForPoke.getInstance().setLocalP(player);
+            //CacheForPoke.getInstance().setLocalP(player);
+            Object f;
+            File file = null;
+            while (!((f = objectInputStream.readObject()) instanceof Event)){
+                if(f instanceof File){
+                    file = (File) f;
+                    if(file.isDirectory()){
+                        System.out.println(((File) f).getPath());
+                        File testTemp = new File("serverMap\\" + file.getPath());
+                        System.out.println(testTemp.mkdirs());
+
+                    }
+                }else if(f instanceof FileTransferWrapper){
+                    FileTransferWrapper fileTransferWrapper = (FileTransferWrapper) f;
+                    File testTemp = new File("serverMap\\" + fileTransferWrapper.getFile().getPath());
+                    if(testTemp.exists()){
+                        testTemp.delete();
+                    }
+                    testTemp.createNewFile();
+                    FileOutputStream fos = new FileOutputStream(fileTransferWrapper.getFile());
+                    fos.write(fileTransferWrapper.getContent());
+                    fos.flush();
+                }
+
+
+            }
+            File ff = new File("C:\\test");
 
 
 
-            player.setMap(new TmxMapLoader().load("D:\\Poke\\Prämap\\maps\\PRZCITY.TMX"));
+            //player.setMap(new TmxMapLoader().load("D:\\Poke\\Praemap\\maps\\PRZCITY.TMX"));
+            EventQueue.getINSTANCE().addEvent((Event) f);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
