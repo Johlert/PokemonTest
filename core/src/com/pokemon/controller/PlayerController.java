@@ -1,16 +1,13 @@
 package com.pokemon.controller;
 
 import com.badlogic.gdx.InputAdapter;
-import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Direction;
-import com.pokemon.model.Events.EventQueue;
-import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Player;
 import com.pokemon.view.screens.game.GameScreen;
 
 public class PlayerController extends InputAdapter {
-    private GameScreen gameScreen;
     private final Player player;
+    private final GameScreen gameScreen;
     private boolean up, down, left, right;
 
     public PlayerController(GameScreen gameScreen, Player player) {
@@ -61,14 +58,16 @@ public class PlayerController extends InputAdapter {
     }
 
     public void update(float delta) {
-        if (up) {
-            player.move(Direction.UP);
-        } else if (down) {
-            player.move(Direction.DOWN);
-        } else if (left) {
-            player.move(Direction.LEFT);
-        } else if (right) {
-            player.move(Direction.RIGHT);
+        if (!player.isInDialogue()) {
+            if (up) {
+                player.move(Direction.UP);
+            } else if (down) {
+                player.move(Direction.DOWN);
+            } else if (left) {
+                player.move(Direction.LEFT);
+            } else if (right) {
+                player.move(Direction.RIGHT);
+            }
         }
 
         gameScreen.renderMap(delta);
