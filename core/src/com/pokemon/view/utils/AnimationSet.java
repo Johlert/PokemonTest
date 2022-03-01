@@ -1,6 +1,7 @@
 package com.pokemon.view.utils;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.model.Direction;
 
@@ -8,13 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AnimationSet {
-    private Map<Direction, Animation> walking;
+    private Map<Direction, Animation<TextureAtlas.AtlasRegion>> walking;
     private Map<Direction, TextureRegion> standing;
 
-    public AnimationSet(Animation walkNorth,
-                        Animation walkSouth,
-                        Animation walkEast,
-                        Animation walkWest,
+    public AnimationSet(Animation<TextureAtlas.AtlasRegion> walkNorth,
+                        Animation<TextureAtlas.AtlasRegion> walkSouth,
+                        Animation<TextureAtlas.AtlasRegion> walkEast,
+                        Animation<TextureAtlas.AtlasRegion> walkWest,
                         TextureRegion standNorth,
                         TextureRegion standSouth,
                         TextureRegion standEast,
@@ -31,7 +32,7 @@ public class AnimationSet {
         standing.put(Direction.LEFT, standWest);
     }
 
-    public Animation getWalking(Direction dir) {
+    public Animation<TextureAtlas.AtlasRegion> getWalking(Direction dir) {
         return walking.get(dir);
     }
 
