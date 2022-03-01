@@ -85,16 +85,15 @@ public class Server implements PostOffice{
             }
             System.out.println(2);
             //todo load player from save if required else send new Player
-<<<<<<< Updated upstream
+
             player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
 
-=======
+
             //player = new Player(null, null, 3 , 3);
             //send(player);
             System.out.println(4);
             File f = new File("core/assets/maps/Praemap");
             loadMapFiles(f, objectOutputStream);
->>>>>>> Stashed changes
 
             System.out.println(3);
             new Thread(new Runnable() {
