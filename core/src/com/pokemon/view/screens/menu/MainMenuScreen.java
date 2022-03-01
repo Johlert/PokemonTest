@@ -101,8 +101,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-
+        table.setFillParent(true);
         table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         table.add(heading);
         table.getCell(heading).spaceBottom(90);
@@ -119,6 +118,7 @@ public class MainMenuScreen implements Screen {
         table.add(quitButton);
 
         stage.addActor(table);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
