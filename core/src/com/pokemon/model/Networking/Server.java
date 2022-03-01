@@ -11,7 +11,6 @@ import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Player;
-import com.pokemon.view.screens.game.GameScreen;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -69,7 +68,7 @@ public class Server implements PostOffice{
             }
             System.out.println(2);
             //todo load player from save if required else send new Player
-            player = new Player(CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
+            player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
 
 
             System.out.println(3);
