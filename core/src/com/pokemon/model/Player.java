@@ -12,6 +12,7 @@ import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Pokemon.Pokemon;
 import com.pokemon.model.Pokemon.Trainer;
+import com.pokemon.view.screens.game.GameScreen;
 import com.pokemon.view.utils.AnimationSet;
 import lombok.Data;
 
@@ -37,35 +38,20 @@ class Player implements Serializable, Trainer, Listener {
     private ACTOR_STATE state;
     private float curWalkDur;
     private boolean moveRequestThisFrame;
+    private boolean inDialogue = false;
 
     private Direction facing;
-
+    private GameScreen gameScreen;
     private AnimationSet animationSet;
 
-    public Player(TiledMap map, TextureMapObject tmo, int x, int y) {
+    public Player(GameScreen screen, TiledMap map, TextureMapObject tmo, int x, int y) {
+        this.gameScreen = screen;
         this.map = map;
         this.tmo = tmo;
         tmo.setX(x * Global.TILE_SIZE);
         tmo.setY(y * Global.TILE_SIZE);
         state = ACTOR_STATE.STANDING;
         facing = Direction.DOWN;
-    }
-
-    public float getANIM_DUR() {
-        return ANIM_DUR;
-    }
-
-    public int getSpeedInTilesPerSec() {
-        return speedInTilesPerSec;
-    }
-
-    @Override
-    public Pokemon getActivePokemon() {
-        return activePokemon;
-    }
-
-    public void setAnimationSet(AnimationSet animationSet) {
-        this.animationSet = animationSet;
     }
 
     public float getX() {
@@ -93,11 +79,16 @@ class Player implements Serializable, Trainer, Listener {
             initializeMove(x, y, dir);
             tmo.setX(x + dir.getDx());
             tmo.setY(y + dir.getDy());
+            return true;
+        } else if (!(boolean) layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE).getTile().getProperties().get("collision")) {
+            gameScreen.initiateDialogue("Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod tempor incididunt");
+            initializeMove(x, y, dir);
+            tmo.setX(x + dir.getDx());
+            tmo.setY(y + dir.getDy());
+            return true;
         } else {
-            System.out.println(layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE).getTile().getProperties());
             return false;
         }
-        return true;
     }
 
     private void initializeMove(int x1, int y1, Direction dir) {
@@ -127,10 +118,13 @@ class Player implements Serializable, Trainer, Listener {
             tmo.setY(Interpolation.linear.apply(srcY, destY, curAnimDur / ANIM_DUR));
             if (curAnimDur > ANIM_DUR) {
                 float leftOverTime = curAnimDur - ANIM_DUR;
-                curWalkDur -= leftOverTime;
                 finishMove();
                 if (moveRequestThisFrame) {
-                    move(facing);
+                    if (move(facing)) {
+                        curAnimDur += leftOverTime;
+                        tmo.setX(Interpolation.linear.apply(srcX, destX, curAnimDur / ANIM_DUR));
+                        tmo.setY(Interpolation.linear.apply(srcY, destY, curAnimDur / ANIM_DUR));
+                    }
                 } else {
                     curWalkDur = 0f;
                 }
@@ -154,7 +148,7 @@ class Player implements Serializable, Trainer, Listener {
 
     public TextureRegion getSprite() {
         if (state == ACTOR_STATE.WALKING) {
-            return (TextureRegion) animationSet.getWalking(facing).getKeyFrame(curWalkDur);
+            return animationSet.getWalking(facing).getKeyFrame(curWalkDur);
         } else if (state == ACTOR_STATE.STANDING) {
             return animationSet.getStanding(facing);
         }
@@ -162,7 +156,6 @@ class Player implements Serializable, Trainer, Listener {
     }
 
     public enum ACTOR_STATE {
-        WALKING,
-        STANDING
+        WALKING, STANDING
     }
 }
