@@ -62,13 +62,13 @@ public class Client implements PostOffice {
                     file = (File) f;
                     if(file.isDirectory()){
                         System.out.println(((File) f).getPath());
-                        File testTemp = new File("serverMap\\" + file.getPath());
+                        File testTemp = new File("serverMap/" + file.getPath());
                         System.out.println(testTemp.mkdirs());
 
                     }
                 }else if(f instanceof FileTransferWrapper){
                     FileTransferWrapper fileTransferWrapper = (FileTransferWrapper) f;
-                    File testTemp = new File("serverMap\\" + fileTransferWrapper.getFile().getPath());
+                    File testTemp = new File("serverMap/" + fileTransferWrapper.getFile().getPath());
                     testTemp.mkdirs();
                     testTemp.delete();
                     System.out.println(testTemp.getPath());
