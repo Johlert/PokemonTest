@@ -10,6 +10,7 @@ import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Player;
+import com.pokemon.view.screens.menu.MainMenuScreen;
 import lombok.SneakyThrows;
 
 import java.io.*;
@@ -17,6 +18,12 @@ import java.io.*;
 public class Client implements PostOffice {
 
 
+
+    public Client(MainMenuScreen mms){
+        this.mms = mms;
+    }
+
+    MainMenuScreen mms;
     Socket socket;
     Net net = new LwjglNet(new LwjglApplicationConfiguration());
 
@@ -82,8 +89,8 @@ public class Client implements PostOffice {
 
 
             }
-            File ff = new File("C:\\test");
-
+            File ff = new File("serverMap/core/assets/maps/Prämap/maps/PRZCITY.TMX");
+            mms.switchToGameScreen(ff);
 
 
             //player.setMap(new TmxMapLoader().load("D:\\Poke\\Praemap\\maps\\PRZCITY.TMX"));

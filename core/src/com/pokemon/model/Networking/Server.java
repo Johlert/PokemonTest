@@ -10,6 +10,7 @@ import com.badlogic.gdx.net.SocketHints;
 import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
+import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Map;
 import com.pokemon.model.Player;
 import lombok.Data;
@@ -18,7 +19,7 @@ import lombok.SneakyThrows;
 import java.io.*;
 import java.util.HashMap;
 
-public class Server implements PostOffice{
+public @Data class Server implements PostOffice{
 
     HashMap<String, Connection> connections = new HashMap<>();
     int counter = 0;
@@ -95,7 +96,7 @@ public class Server implements PostOffice{
             System.out.println(4);
             File f = new File("core/assets/maps/Prämap");
             loadMapFiles(f, objectOutputStream);
-
+            broadcast(new MapJoinEvent());
             System.out.println(3);
             new Thread(new Runnable() {
                 @Override

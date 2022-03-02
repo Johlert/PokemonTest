@@ -10,6 +10,7 @@ import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
+import com.pokemon.model.Networking.Server;
 import com.pokemon.model.Pokemon.Pokemon;
 import com.pokemon.model.Pokemon.Trainer;
 import com.pokemon.view.screens.game.GameScreen;
@@ -92,7 +93,7 @@ class Player implements Serializable, Trainer, Listener {
     }
 
     private void initializeMove(int x1, int y1, Direction dir) {
-        MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP(), dir);
+        MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir);
         CacheForPoke.getInstance().getPostOffice().broadcast(mv);
         EventQueue.getINSTANCE().addEvent(mv);
         this.facing = dir;
@@ -135,10 +136,13 @@ class Player implements Serializable, Trainer, Listener {
 
     @Override
     public void onMove(MoveEvent moveEvent) {
-        if (moveEvent.getP().equals(this)) {
+        if (moveEvent.getName().equals(name)) {
             move(moveEvent.getDirection());
         } else {
-            moveEvent.getP().move(moveEvent.getDirection());
+            if(CacheForPoke.getInstance().getPostOffice() instanceof Server){
+                Server s = (Server) CacheForPoke.getInstance().getPostOffice();
+                s.getConnections().get(moveEvent.getName()).getPlayer().move(moveEvent.getDirection());
+            }
         }
     }
 

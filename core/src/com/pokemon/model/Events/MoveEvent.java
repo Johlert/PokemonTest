@@ -3,10 +3,11 @@ package com.pokemon.model.Events;
 
 import com.pokemon.model.Direction;
 import com.pokemon.model.Player;
+import lombok.Data;
 
-public class MoveEvent implements Event{
+public @Data class MoveEvent implements Event{
 
-    private Player p;
+    private String name;
     private Direction direction;
 
 
@@ -15,18 +16,11 @@ public class MoveEvent implements Event{
         return EventType.PLAYERMOVEEVENT;
     }
 
-    public MoveEvent(Player p, Direction direction) {
-        this.p = p;
+    public MoveEvent(String name, Direction direction) {
+        this.name = name;
         this.direction = direction;
     }
 
-    public Player getP() {
-        return p;
-    }
-
-    public void setP(Player p) {
-        this.p = p;
-    }
 
     public Direction getDirection() {
         return direction;

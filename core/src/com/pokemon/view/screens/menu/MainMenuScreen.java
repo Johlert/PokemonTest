@@ -18,6 +18,9 @@ import com.pokemon.model.Networking.Client;
 import com.pokemon.model.Networking.Server;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.screens.game.GameScreen;
+import sun.applet.Main;
+
+import java.io.File;
 
 public class MainMenuScreen implements Screen {
     private final Pokemon pokemon;
@@ -34,8 +37,10 @@ public class MainMenuScreen implements Screen {
     private final BitmapFont white;
     private final BitmapFont black;
     private final Label heading;
+    private final MainMenuScreen mms;
 
     public MainMenuScreen(final Pokemon pokemon) {
+        this.mms = this;
         this.pokemon = pokemon;
         stage = new Stage();
         atlas = new TextureAtlas("atlas/atlas.pack");
@@ -79,10 +84,9 @@ public class MainMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("joining");
-                Client client = new Client();
+                Client client = new Client(mms);
                 CacheForPoke.getInstance().setPostOffice(client);
                 System.out.println("connect: " + client.connect("localhost", "egal"));
-                pokemon.setScreen(new GameScreen(pokemon, CacheForPoke.getInstance().getLocalP().getMap()));
             }
         });
         settingsButton.addListener(new ClickListener() {
@@ -97,6 +101,10 @@ public class MainMenuScreen implements Screen {
                 Gdx.app.exit();
             }
         });
+    }
+
+    public void switchToGameScreen(File file){
+        pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load(file.getPath())));
     }
 
     @Override
