@@ -6,7 +6,7 @@ import java.io.*;
 
 public @Data class FileTransferWrapper implements Serializable {
     private File file;
-    private byte[] content = new byte[32 * 1024];
+    private byte[] content = new byte[1024 * 1024];
 
     public FileTransferWrapper(File file) throws Exception {
         this.file = file;
