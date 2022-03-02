@@ -71,7 +71,7 @@ public class Client implements PostOffice {
                     File testTemp = new File("serverMap/" + fileTransferWrapper.getFile().getPath());
                     testTemp.mkdirs();
                     testTemp.delete();
-                    System.out.println(testTemp.getPath());
+                    System.out.println(fileTransferWrapper.getContent().length);
                     testTemp.createNewFile();
                     FileOutputStream fos = new FileOutputStream(fileTransferWrapper.getFile());
                     fos.write(fileTransferWrapper.getContent());
