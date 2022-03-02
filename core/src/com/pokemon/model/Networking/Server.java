@@ -52,13 +52,14 @@ public class Server implements PostOffice{
 
 
     public static void loadMapFiles(File f, ObjectOutputStream objectOutputStream) throws Exception {
-
+        System.out.println("sending map files");
         for(File file : f.listFiles()){
 
             if(file.isDirectory()){
                 objectOutputStream.writeObject(file);
                 loadMapFiles(file, objectOutputStream);
             }else {
+                System.out.println("sending file");
                 FileTransferWrapper fileTransferWrapper = new FileTransferWrapper(file);
                 objectOutputStream.writeObject(fileTransferWrapper);
             }
@@ -92,7 +93,7 @@ public class Server implements PostOffice{
             //player = new Player(null, null, 3 , 3);
             //send(player);
             System.out.println(4);
-            File f = new File("core/assets/maps/Praemap");
+            File f = new File("core/assets/maps/Prämap");
             loadMapFiles(f, objectOutputStream);
 
             System.out.println(3);

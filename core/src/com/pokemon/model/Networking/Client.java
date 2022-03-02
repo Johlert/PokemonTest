@@ -11,7 +11,6 @@ import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Player;
 import lombok.SneakyThrows;
-import sun.security.util.IOUtils;
 
 import java.io.*;
 
@@ -70,13 +69,15 @@ public class Client implements PostOffice {
                 }else if(f instanceof FileTransferWrapper){
                     FileTransferWrapper fileTransferWrapper = (FileTransferWrapper) f;
                     File testTemp = new File("serverMap\\" + fileTransferWrapper.getFile().getPath());
-                    if(testTemp.exists()){
-                        testTemp.delete();
-                    }
+                    testTemp.mkdirs();
+                    testTemp.delete();
+                    System.out.println(testTemp.getPath());
                     testTemp.createNewFile();
                     FileOutputStream fos = new FileOutputStream(fileTransferWrapper.getFile());
                     fos.write(fileTransferWrapper.getContent());
                     fos.flush();
+                }else {
+                    System.out.println("why");
                 }
 
 
