@@ -73,7 +73,7 @@ public class Client implements PostOffice {
                     testTemp.delete();
                     System.out.println(fileTransferWrapper.getContent().length);
                     testTemp.createNewFile();
-                    FileOutputStream fos = new FileOutputStream(fileTransferWrapper.getFile());
+                    FileOutputStream fos = new FileOutputStream(testTemp);
                     fos.write(fileTransferWrapper.getContent());
                     fos.flush();
                 }else {
