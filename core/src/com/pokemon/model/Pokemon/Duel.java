@@ -27,8 +27,21 @@ public class Duel {
     private void resolveRound(){
         if(hasP1Moved && hasP2Moved){
 
-            //todo fighting
 
+            if(trainer1.getActivePokemon().getSpeed() > trainer2.getActivePokemon().getSpeed()){
+
+            }
+
+
+            //todo fighting
+        }
+    }
+
+    public int calculateDamamge(Pokemon attacker,Pokemon defender, Ability ability){
+        double dmg = (2 * attacker.getLevel() / 5) + 2;
+        if(ability.isSpecial()){
+            dmg = dmg * attacker.getSpecialAttack() * ability.getPower();
+        }else {
 
         }
     }
