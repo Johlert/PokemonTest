@@ -38,11 +38,12 @@ public class Duel {
     }
 
     public int calculateDamamge(Pokemon attacker,Pokemon defender, Ability ability){
-        double dmg = (2 * attacker.getLevel() / 5) + 2;
+        double dmg = (2f * attacker.getLevel() / 5) + 2;
         if(ability.isSpecial()){
             dmg = dmg * attacker.getSpecialAttack() * ability.getPower();
         }else {
 
         }
+        return (int) dmg;
     }
 }
