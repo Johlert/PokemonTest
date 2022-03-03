@@ -20,9 +20,13 @@ public class EventHandler extends Thread{
                 for(Listener listener : listeners){
 
                     if(event instanceof MoveEvent){
+                        if(listener == null){
+                            System.out.println("l == null");
+                        }
+                        assert listener != null;
                         listener.onMove((MoveEvent) event);
                     }else if(event instanceof  MapJoinEvent){
-
+                        listener.onMapJoin((MapJoinEvent) event);
                     }
 
                     //todo add event calling for rest of the events
