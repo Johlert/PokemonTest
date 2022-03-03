@@ -138,10 +138,12 @@ class Player implements Serializable, Trainer, Listener {
     @Override
     public void onMove(MoveEvent moveEvent) {
 
+        System.out.println("moveEvent name" + moveEvent.getName());
         if (moveEvent.getName().equals(name)) {
             move(moveEvent.getDirection());
         } else {
             System.out.println(moveEvent.getName() + ":" + getX() + ":" + getY());
+
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).move(moveEvent.getDirection());
 
         }
