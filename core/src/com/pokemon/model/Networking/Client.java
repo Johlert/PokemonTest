@@ -31,8 +31,14 @@ public class Client implements PostOffice {
     public boolean connect(String ip, String playername) {
         socket = net.newClientSocket(Net.Protocol.TCP, ip, 5000, new SocketHints());
         if(socket.isConnected()){
+            try {
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             new Listener(socket, playername);
         }
+
         return socket.isConnected();
     }
 
@@ -44,7 +50,7 @@ public class Client implements PostOffice {
      */
     public void send(Serializable s){
         try {
-             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
             objectOutputStream.writeObject(s);
             objectOutputStream.flush();
         }catch (Exception e){
