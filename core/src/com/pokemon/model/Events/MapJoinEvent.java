@@ -8,7 +8,7 @@ public @Data
 class MapJoinEvent implements Event{
 
     private Map map;
-    private Player player;
+    private String name;
 
     @Override
     public EventType getType() {
