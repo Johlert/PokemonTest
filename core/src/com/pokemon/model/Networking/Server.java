@@ -3,16 +3,20 @@ package com.pokemon.model.Networking;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglNet;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
-import com.pokemon.model.CacheForPoke;
+import com.pokemon.model.*;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.MapJoinEvent;
-import com.pokemon.model.Map;
-import com.pokemon.model.Player;
+import com.pokemon.view.Pokemon;
+import com.pokemon.view.utils.AnimationSet;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -84,6 +88,23 @@ public @Data class Server implements PostOffice{
                 return;
             }else {
                 connections.put(name, this);
+                Pokemon pokemon = CacheForPoke.getInstance().getLocalP().getGameScreen().getPokemon();
+                String color = "cyan";
+                TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
+                TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
+                Player player = new Player(null, CacheForPoke.getInstance().getLocalP().getMap(), new TextureMapObject(textureRegion),55, 9);
+                CacheForPoke.getInstance().getPlayers().put(name, player);
+                player.setName(name);
+
+                player.setAnimationSet(new AnimationSet(
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
+                        atlas.findRegion(color + "_stand_north"),
+                        atlas.findRegion(color + "_stand_south"),
+                        atlas.findRegion(color + "_stand_east"),
+                        atlas.findRegion(color + "_stand_west")));
             }
             System.out.println(2);
             //todo load player from save if required else send new Player
@@ -96,7 +117,7 @@ public @Data class Server implements PostOffice{
             System.out.println(4);
             File f = new File("core/assets/maps/Prämap");
             loadMapFiles(f, objectOutputStream);
-            broadcast(new MapJoinEvent());
+            broadcast(new MapJoinEvent(name, new Position(55, 9)));
             System.out.println(3);
             new Thread(new Runnable() {
                 @Override
