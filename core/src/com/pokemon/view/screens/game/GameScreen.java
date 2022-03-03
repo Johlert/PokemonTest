@@ -22,17 +22,22 @@ import com.pokemon.controller.OptionBoxController;
 import com.pokemon.controller.PlayerController;
 import com.pokemon.controller.UtilController;
 import com.pokemon.model.CacheForPoke;
+import com.pokemon.model.Events.Listener;
+import com.pokemon.model.Events.MapJoinEvent;
+import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Global;
 import com.pokemon.model.Player;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.AnimationSet;
 import com.pokemon.view.utils.dialogue.DialogueBox;
 import com.pokemon.view.utils.dialogue.OptionBox;
+import lombok.Data;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-public class GameScreen implements Screen {
+public @Data class GameScreen implements Screen {
     //w: 297 h: 167
     public static final int V_WIDTH = 400;
     public static final int V_HEIGHT = 310;
@@ -58,6 +63,7 @@ public class GameScreen implements Screen {
     public GameScreen(Pokemon pokemon, TiledMap map) {
         this.pokemon = pokemon;
         this.map = map;
+        CacheForPoke.getInstance().getHandler().addListener(new ScreenListener());
     }
 
     @Override
@@ -147,10 +153,13 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         playerController.update(delta);
-        //player.getTmo().setTextureRegion(player.getSprite());
+        player.getTmo().setTextureRegion(player.getSprite());
 
         for(Player value : CacheForPoke.getInstance().getPlayers().values()){
-            value.getTmo().setTextureRegion(player.getSprite());
+            if(!value.equals(player)){
+                value.getTmo().setTextureRegion(player.getSprite());
+            }
+
         }
 
         renderMap(delta);
@@ -207,5 +216,31 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public @Data class ScreenListener implements Listener {
+        @Override
+        public void onMove(MoveEvent moveEvent) {
+        }
+
+        @Override
+        public void onMapJoin(MapJoinEvent mapJoinEvent) {
+            String color = "cyan";
+            TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
+            TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
+            Player player = new Player(null, map, new TextureMapObject(textureRegion),20 ,20);
+            CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
+
+            player.setAnimationSet(new AnimationSet(
+                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
+                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
+                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
+                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
+                    atlas.findRegion(color + "_stand_north"),
+                    atlas.findRegion(color + "_stand_south"),
+                    atlas.findRegion(color + "_stand_east"),
+                    atlas.findRegion(color + "_stand_west")));
+
+        }
     }
 }
