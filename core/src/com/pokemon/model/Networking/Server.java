@@ -88,7 +88,7 @@ public @Data class Server implements PostOffice{
             System.out.println(2);
             //todo load player from save if required else send new Player
 
-            player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
+            //player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
 
 
             //player = new Player(null, null, 3 , 3);
