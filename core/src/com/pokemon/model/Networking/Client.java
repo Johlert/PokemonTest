@@ -23,6 +23,7 @@ public class Client implements PostOffice {
         this.mms = mms;
     }
 
+    ObjectOutputStream objectOutputStream;
     MainMenuScreen mms;
     Socket socket;
     Net net = new LwjglNet(new LwjglApplicationConfiguration());
@@ -43,7 +44,7 @@ public class Client implements PostOffice {
      */
     public void send(Serializable s){
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeObject(s);
             objectOutputStream.flush();
         }catch (Exception e){
