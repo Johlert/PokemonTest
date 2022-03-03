@@ -148,8 +148,9 @@ class Player implements Serializable, Trainer, Listener {
 
     @Override
     public void onMapJoin(MapJoinEvent mapJoinEvent) {
-        Player p = new Player();
-        CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), p);
+        //Player p = new Player();
+        //CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), p);
+        //todo jan
     }
 
     public TextureRegion getSprite() {
