@@ -1,5 +1,6 @@
 package com.pokemon.model;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -136,21 +137,19 @@ class Player implements Serializable, Trainer, Listener {
 
     @Override
     public void onMove(MoveEvent moveEvent) {
+
         if (moveEvent.getName().equals(name)) {
             move(moveEvent.getDirection());
         } else {
-            if(CacheForPoke.getInstance().getPostOffice() instanceof Server){
-                Server s = (Server) CacheForPoke.getInstance().getPostOffice();
-                s.getConnections().get(moveEvent.getName()).getPlayer().move(moveEvent.getDirection());
-            }
+            System.out.println(moveEvent.getName() + ":" + getX() + ":" + getY());
+            CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).move(moveEvent.getDirection());
+
         }
     }
 
     @Override
     public void onMapJoin(MapJoinEvent mapJoinEvent) {
-        //Player p = new Player();
-        //CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), p);
-        //todo jan
+
     }
 
     public TextureRegion getSprite() {
