@@ -20,9 +20,11 @@ public @Data class CacheForPoke {
     private HashMap<String, Gen> gens = new HashMap<>();
     private HashMap<Integer, Item> items = new HashMap<>();
     private HashMap<String, World> worlds = new HashMap<>();
+    private HashMap<String, Player> players = new HashMap<>();
     private World activeWorld;
     private EventHandler handler = new EventHandler();
     private PostOffice postOffice;
+
 
 
     private CacheForPoke(){
