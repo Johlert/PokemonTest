@@ -29,6 +29,9 @@ import com.pokemon.view.utils.AnimationSet;
 import com.pokemon.view.utils.dialogue.DialogueBox;
 import com.pokemon.view.utils.dialogue.OptionBox;
 
+import java.util.Iterator;
+import java.util.Map;
+
 public class GameScreen implements Screen {
     //w: 297 h: 167
     public static final int V_WIDTH = 400;
@@ -144,7 +147,12 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         playerController.update(delta);
-        player.getTmo().setTextureRegion(player.getSprite());
+        //player.getTmo().setTextureRegion(player.getSprite());
+
+        for(Player value : CacheForPoke.getInstance().getPlayers().values()){
+            value.getTmo().setTextureRegion(player.getSprite());
+        }
+
         renderMap(delta);
 
         overlayStage.draw();
