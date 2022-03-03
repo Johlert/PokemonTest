@@ -26,6 +26,7 @@ import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
 import com.pokemon.model.Global;
+import com.pokemon.model.Networking.Server;
 import com.pokemon.model.Player;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.AnimationSet;
@@ -87,6 +88,9 @@ public @Data class GameScreen implements Screen {
 
         playerLayer.getObjects().add(tmo);
         player = new Player(this, map, tmo, 54, 8);
+        if(!(CacheForPoke.getInstance().getPostOffice() instanceof Server)){
+            player.setName("egal");
+        }
 
         player.setAnimationSet(new AnimationSet(
                 new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
@@ -157,7 +161,9 @@ public @Data class GameScreen implements Screen {
 
         for(Player value : CacheForPoke.getInstance().getPlayers().values()){
             if(!value.equals(player)){
+                playerLayer.getObjects().add(value.getTmo());
                 value.getTmo().setTextureRegion(player.getSprite());
+
             }
 
         }
@@ -228,9 +234,9 @@ public @Data class GameScreen implements Screen {
             String color = "cyan";
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
-            Player player = new Player(null, map, new TextureMapObject(textureRegion),20 ,20);
+            Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX(), mapJoinEvent.getPosition().getY());
             CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
-
+            player.setName(mapJoinEvent.getName());
             player.setAnimationSet(new AnimationSet(
                     new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
                     new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
