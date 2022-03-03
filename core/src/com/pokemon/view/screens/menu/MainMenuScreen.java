@@ -18,7 +18,6 @@ import com.pokemon.model.Networking.Client;
 import com.pokemon.model.Networking.Server;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.screens.game.GameScreen;
-import sun.applet.Main;
 
 import java.io.File;
 
