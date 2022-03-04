@@ -16,7 +16,6 @@ import java.util.HashMap;
  * THis is the cache where the data is loaded into eg all the different info that is required to run
  */
 public @Data class CacheForPoke {
-    //todo ensure that the local player is added into here
     private Player localP;
     private static CacheForPoke instance;
     private HashMap<String, Gen> gens = new HashMap<>();
