@@ -94,9 +94,11 @@ class Player implements Serializable, Trainer, Listener {
     }
 
     private void initializeMove(int x1, int y1, Direction dir) {
-        MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir);
-        CacheForPoke.getInstance().getPostOffice().broadcast(mv);
-        EventQueue.getINSTANCE().addEvent(mv);
+        if(CacheForPoke.getInstance().getLocalP().equals(this)){
+            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir);
+            CacheForPoke.getInstance().getPostOffice().broadcast(mv);
+            EventQueue.getINSTANCE().addEvent(mv);
+        }
         this.facing = dir;
         srcX = x1;
         srcY = y1;
