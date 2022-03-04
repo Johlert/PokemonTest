@@ -10,10 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.pokemon.controller.UserSettings;
-import com.pokemon.model.Events.EventQueue;
-import com.pokemon.model.Events.Listener;
-import com.pokemon.model.Events.MapJoinEvent;
-import com.pokemon.model.Events.MoveEvent;
+import com.pokemon.model.Events.*;
 import com.pokemon.model.Pokemon.Pokemon;
 import com.pokemon.model.Pokemon.Trainer;
 import com.pokemon.view.screens.game.GameScreen;
@@ -94,7 +91,6 @@ class Player implements Serializable, Trainer, Listener {
         }
 
         if (spawnLayer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) != null){
-            //todo start battle with a random pokemon
         } else {
             for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
                 if (object instanceof RectangleMapObject){
@@ -196,6 +192,15 @@ class Player implements Serializable, Trainer, Listener {
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getTmo().setY(moveEvent.getPos().getY());
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).move(moveEvent.getDirection());
 
+        }
+    }
+
+    @Override
+    public void onPlayerFacing(FacingEvent facingEvent) {
+        if(facingEvent.getName().equals(CacheForPoke.getInstance().getLocalP().getName())){
+            facing = facingEvent.getDirection();
+        }else {
+            CacheForPoke.getInstance().getPlayers().get(facingEvent.getName()).setFacing(facingEvent.getDirection());
         }
     }
 
