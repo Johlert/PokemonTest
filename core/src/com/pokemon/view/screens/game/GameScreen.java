@@ -198,7 +198,7 @@ public @Data class GameScreen implements Screen {
         player.getTmo().setTextureRegion(player.getSprite());
 
         for(Player value : CacheForPoke.getInstance().getPlayers().values()){
-            if(value.equals(player)){
+            if(!value.equals(player)){
                 playerLayer.getObjects().add(value.getTmo());
                 value.getTmo().setTextureRegion(value.getSprite());
                 value.update(delta);
@@ -213,8 +213,8 @@ public @Data class GameScreen implements Screen {
         if (tempx !=  player.getX() || tempy !=  player.getY()) {
             tempx =  player.getX();
             tempy = player.getY();
-            System.out.println("Player x: " + player.getX());
-            System.out.println("Player y: " + player.getY());
+            //System.out.println("Player x: " + player.getX());
+            //System.out.println("Player y: " + player.getY());
         }
     }
 
@@ -282,7 +282,7 @@ public @Data class GameScreen implements Screen {
                 ((Server) CacheForPoke.getInstance().getPostOffice()).broadcast(mapJoinEvent, mapJoinEvent.getName());
             }
 
-            System.out.println("mapjoinevent found " + mapJoinEvent.getName() +" : " + mapJoinEvent.getPosition().getX() + " : " + mapJoinEvent.getPosition().getY());
+            System.out.println("mapjoinevent found " + mapJoinEvent.getName() +" : " + mapJoinEvent.getPosition().getX() / Global.TILE_SIZE + " : " + mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
             String color = "cyan";
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
