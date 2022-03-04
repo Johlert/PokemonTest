@@ -119,6 +119,7 @@ public @Data class GameScreen implements Screen {
     }
 
     public Map setMap(String mapName, Direction facing, int doorId) {
+        //player.setState(Player.ACTOR_STATE.STANDING);
         map = new Map();
         map.setName(mapName);
         map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName).getMap());
@@ -150,6 +151,7 @@ public @Data class GameScreen implements Screen {
         }
 
         player.setFacing(facing);
+        player.setTemp(false);
         return map;
     }
 
@@ -241,7 +243,6 @@ public @Data class GameScreen implements Screen {
 
     public void initiateDialogue(String s) {
         player.setInDialogue(true);
-        System.out.println(player.getState());
         dialogueBox.setVisible(true);
         dialogueBox.write(s);
     }
