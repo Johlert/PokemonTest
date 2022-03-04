@@ -11,6 +11,7 @@ public @Data class World implements Serializable {
     private String name;
     private HashMap<String, TiledMap> maps;
     private HashMap<String, Player> players;
+    private TiledMap activeMap;
 
 
 }

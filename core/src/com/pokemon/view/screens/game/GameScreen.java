@@ -244,6 +244,10 @@ public @Data class GameScreen implements Screen {
 
         @Override
         public void onMapJoin(MapJoinEvent mapJoinEvent) {
+            if(CacheForPoke.getInstance().getPostOffice() instanceof Server){
+                ((Server) CacheForPoke.getInstance().getPostOffice()).broadcast(mapJoinEvent, mapJoinEvent.getName());
+            }
+
             System.out.println("mapjoinevent found " + mapJoinEvent.getName() +" : " + mapJoinEvent.getPosition().getX() + " : " + mapJoinEvent.getPosition().getY());
             String color = "cyan";
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);

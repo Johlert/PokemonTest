@@ -91,7 +91,7 @@ public @Data class Server implements PostOffice{
                 String color = "cyan";
                 TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
                 TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
-                Player player = new Player(null, CacheForPoke.getInstance().getLocalP().getMap().getMap(), new TextureMapObject(textureRegion),55, 9);
+                Player player = new Player(null, CacheForPoke.getInstance().getActiveWorld().getActiveMap(), new TextureMapObject(textureRegion),55, 9);
                 CacheForPoke.getInstance().getPlayers().put(name, player);
                 player.setName(name);
 
@@ -117,8 +117,12 @@ public @Data class Server implements PostOffice{
             File f = new File("core/assets/maps/Prämap");
             loadMapFiles(f, objectOutputStream);
             //broadcast(new MapJoinEvent(name, new Position(55, 9)));
+            for(Player p : CacheForPoke.getInstance().getPlayers().values()){
+                if(CacheForPoke.getInstance().getActiveWorld().getName().equals(p.getMap().getName())){
+                    send(new MapJoinEvent(p.getName(), new Position((int) p.getTmo().getX(), (int)p.getTmo().getY(), p.getMap().getName())));
+                }
+            }
 
-            send(new MapJoinEvent(CacheForPoke.getInstance().getLocalP().getName(), new Position((int) CacheForPoke.getInstance().getLocalP().getTmo().getX(), (int) CacheForPoke.getInstance().getLocalP().getTmo().getY(), CacheForPoke.getInstance().getLocalP().getMap().getName())));
             System.out.println(3);
             new Thread(new Runnable() {
                 @Override
@@ -162,6 +166,14 @@ public @Data class Server implements PostOffice{
     public void broadcast(Event e) {
         for(String s : connections.keySet()){
             connections.get(s).send(e);
+        }
+    }
+
+    public void broadcast(Event e, String name){
+        for(String s : connections.keySet()){
+            if(!s.equals(name)){
+                connections.get(s).send(e);
+            }
         }
     }
 }

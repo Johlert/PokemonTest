@@ -37,8 +37,10 @@ public @Data class CacheForPoke {
         TmxMapLoader tmx = new TmxMapLoader();
         activeWorld = new World();
         for(File f : path.listFiles()){
-            activeWorld.getMaps().put(f.getName(), tmx.load(f.getPath()));
+            activeWorld.getMaps().put(f.getName().substring(0, f.getName().length() - 4), tmx.load(f.getPath()));
+            System.out.println(f.getName().substring(0, f.getName().length() - 4));
         }
+        activeWorld.setActiveMap(activeWorld.getMaps().get("PRZMAP"));
     }
 
     public static CacheForPoke getInstance() {
