@@ -26,10 +26,10 @@ import java.util.HashMap;
 
 public @Data class Server implements PostOffice{
 
-    HashMap<String, Connection> connections = new HashMap<>();
-    int counter = 0;
-    ServerSocket server;
-    Net net = new LwjglNet(new LwjglApplicationConfiguration());
+    private HashMap<String, Connection> connections = new HashMap<>();
+    private int counter = 0;
+    private ServerSocket server;
+    private Net net = new LwjglNet(new LwjglApplicationConfiguration());
 
     public Server() {
         server = net.newServerSocket(Net.Protocol.TCP, 5000, new ServerSocketHints());
@@ -109,8 +109,6 @@ public @Data class Server implements PostOffice{
                 System.out.println("finished loading animations");
             }
             System.out.println(2);
-            //todo load player from save if required else send new Player
-
             //player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
 
 
@@ -156,10 +154,10 @@ public @Data class Server implements PostOffice{
                 }
             }).start();
         }
-        boolean isListening = true;
-        Socket socket;
-        Player player;
-        ObjectOutputStream objectOutputStream;
+        private boolean isListening = true;
+        private Socket socket;
+        private Player player;
+        private ObjectOutputStream objectOutputStream;
         /**
          * All fields in s must be Serializable and all fields of the fields in s must be Serializable
          * @param s
