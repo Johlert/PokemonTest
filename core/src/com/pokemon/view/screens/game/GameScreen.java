@@ -25,6 +25,7 @@ import com.pokemon.controller.OptionBoxController;
 import com.pokemon.controller.PlayerController;
 import com.pokemon.controller.UtilController;
 import com.pokemon.model.*;
+import com.pokemon.model.Events.FacingEvent;
 import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
@@ -274,6 +275,10 @@ public @Data class GameScreen implements Screen {
     public @Data class ScreenListener implements Listener {
         @Override
         public void onMove(MoveEvent moveEvent) {
+        }
+
+        @Override
+        public void onPlayerFacing(FacingEvent facingEvent) {
         }
 
         @Override
