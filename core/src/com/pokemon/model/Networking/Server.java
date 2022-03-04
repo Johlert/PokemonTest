@@ -64,7 +64,6 @@ public @Data class Server implements PostOffice{
                 objectOutputStream.writeObject(file);
                 loadMapFiles(file, objectOutputStream);
             }else {
-                System.out.println("sending file");
                 FileTransferWrapper fileTransferWrapper = new FileTransferWrapper(file);
                 objectOutputStream.writeObject(fileTransferWrapper);
             }
