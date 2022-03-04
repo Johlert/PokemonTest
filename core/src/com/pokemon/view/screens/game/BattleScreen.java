@@ -51,6 +51,7 @@ public class BattleScreen implements Screen {
         DialogueBox dialogueBox = new DialogueBox(pokemon.getSkin());
         dialogueBox.write("lfgdmhöldfghml");
         table.add(dialogueBox).expand().align(Align.bottom).fill(1, 0.3f);
+        
 
         Table fightBox = new Table();
         fightBox.setDebug(true);
