@@ -31,6 +31,7 @@ public class Pokemon extends Game {
         assetManager.load("atlas/player_sprites.atlas", TextureAtlas.class);
         assetManager.load("atlas/ui.atlas", TextureAtlas.class);
         assetManager.load("fonts/small_letters_font.fnt", BitmapFont.class);
+        assetManager.load("atlas/battle.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
         initSkin();
