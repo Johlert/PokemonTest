@@ -43,9 +43,6 @@ public @Data class CacheForPoke {
             activeWorld.getMaps().put(f.getName().substring(0, f.getName().length() - 4), map);
             System.out.println(f.getName().substring(0, f.getName().length() - 4));
         }
-        if(activeWorld.getMaps().get("PRZCITY.") == null){
-            System.out.println("starting map null");
-        }
         activeWorld.setActiveMap(activeWorld.getMaps().get("PRZCITY"));
     }
 
