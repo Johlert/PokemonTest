@@ -117,7 +117,7 @@ public @Data class GameScreen implements Screen {
         renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
     }
 
-    public void setMap(String mapName, Direction facing, int doorId) {
+    public Map setMap(String mapName, Direction facing, int doorId) {
         map = new Map();
         map.setName(mapName);
         map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName).getMap());
@@ -136,7 +136,7 @@ public @Data class GameScreen implements Screen {
         }
 
         player.setFacing(facing);
-        player.setMap(map);
+        return map;
     }
 
     private void initControllers() {
@@ -185,7 +185,7 @@ public @Data class GameScreen implements Screen {
         player.getTmo().setTextureRegion(player.getSprite());
 
         for(Player value : CacheForPoke.getInstance().getPlayers().values()){
-            if(!value.equals(player)){
+            if(value.equals(player)){
                 playerLayer.getObjects().add(value.getTmo());
                 value.getTmo().setTextureRegion(value.getSprite());
                 value.update(delta);
