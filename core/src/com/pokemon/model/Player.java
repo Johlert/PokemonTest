@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.pokemon.controller.UserSettings;
@@ -40,6 +38,7 @@ class Player implements Serializable, Trainer, Listener {
     private float curWalkDur;
     private boolean moveRequestThisFrame;
     private boolean inDialogue = false;
+    public boolean temp;
 
     private Direction facing;
     private GameScreen gameScreen;
@@ -76,61 +75,58 @@ class Player implements Serializable, Trainer, Listener {
         }
 
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getMap().getLayers().get("Collision Layer");
-        TiledMapTileLayer spawnLayer = (TiledMapTileLayer) map.getMap().getLayers().get("Spawn Layer");
 
+        temp = layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) == null;
 
-        boolean temp = false;
-
-        if (layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) == null) {
-            initializeMove(x, y, dir);
-            tmo.setX(x + dir.getDx());
-            tmo.setY(y + dir.getDy());
-            temp = true;
-        } else if (!(boolean) layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE).getTile().getProperties().get("collision")) {
-            gameScreen.initiateDialogue("TRAINER TIPS\nCatch pokemon and expand your collection.\nThe more you have, the easier it is to battle.");
-        }
-
-        if (spawnLayer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) != null){
-        } else {
-            for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
-                if (object instanceof RectangleMapObject){
+        if (CacheForPoke.getInstance().getLocalP().equals(this)){
+            for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()) {
+                if (object instanceof RectangleMapObject) {
                     Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
-                    if (rectangle.contains(getX(), getY())){
-                        String mapName = (String) object.getProperties().get("map");
-                        String facing = (String) object.getProperties().get("facing");
-                        int doorId;
-                        if (object.getProperties().get("doorid") == null){
-                            doorId = 0;
+                    if (rectangle.contains(x + dir.getDx(), y + dir.getDy())) {
+                        if (object.getName().equals("dialogue")) {
+                            gameScreen.initiateDialogue((String) object.getProperties().get("dialogue"));
                         } else {
-                            doorId = (int) object.getProperties().get("doorid");
-                        }
+                            String mapName = (String) object.getProperties().get("map");
+                            String facing = (String) object.getProperties().get("facing");
+                            int doorId;
+                            if (object.getProperties().get("doorid") == null) {
+                                doorId = 0;
+                            } else {
+                                doorId = (int) object.getProperties().get("doorid");
+                            }
 
-                        Direction direction = null;
+                            Direction direction = null;
 
-                        switch (facing) {
-                            case "north":
-                                direction = Direction.UP;
-                                break;
-                            case "south":
-                                direction = Direction.DOWN;
-                                break;
-                            case "east":
-                                direction = Direction.RIGHT;
-                                break;
-                            case "west":
-                                direction = Direction.LEFT;
-                                break;
-                        }
+                            switch (facing) {
+                                case "north":
+                                    direction = Direction.UP;
+                                    break;
+                                case "south":
+                                    direction = Direction.DOWN;
+                                    break;
+                                case "east":
+                                    direction = Direction.RIGHT;
+                                    break;
+                                case "west":
+                                    direction = Direction.LEFT;
+                                    break;
+                            }
 
-                        if (CacheForPoke.getInstance().getLocalP().equals(this)){
-                            map = gameScreen.setMap( mapName, direction, doorId);
+                            if (CacheForPoke.getInstance().getLocalP().equals(this)) {
+                                map = gameScreen.setMap(mapName, direction, doorId);
+                            }
                         }
                     }
                 }
             }
         }
 
+        if (temp){
+            initializeMove(x, y, dir);
+            tmo.setX(x + dir.getDx());
+            tmo.setY(y + dir.getDy());
+        }
         return temp;
     }
 
