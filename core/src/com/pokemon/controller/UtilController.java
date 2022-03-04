@@ -29,7 +29,7 @@ public class UtilController extends InputAdapter {
 
         if (keycode == Input.Keys.F12) {
             collisionVisible = !collisionVisible;
-            gamescreen.getMap().getLayers().get("Collision Layer").setVisible(collisionVisible);
+            gamescreen.getMap().getMap().getLayers().get("Collision Layer").setVisible(collisionVisible);
         }
 
         return false;
