@@ -6,12 +6,10 @@ import com.pokemon.view.screens.game.GameScreen;
 import com.pokemon.view.utils.dialogue.DialogueBox;
 
 public class DialogueController extends InputAdapter {
-    private final GameScreen gameScreen;
     private final DialogueBox box;
     private final Player player;
 
-    public DialogueController(GameScreen gameScreen, DialogueBox box, Player player) {
-        this.gameScreen = gameScreen;
+    public DialogueController(DialogueBox box, Player player) {
         this.box = box;
         this.player = player;
     }
