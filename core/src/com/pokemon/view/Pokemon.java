@@ -36,7 +36,7 @@ public class Pokemon extends Game {
         assetManager.finishLoading();
 
         initSkin();
-        setScreen(new MainMenuScreen(this));
+        setScreen(new BattleScreen(this));
         //setScreen(new MainMenuScreen(this));
     }
 
