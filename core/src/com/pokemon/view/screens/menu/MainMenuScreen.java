@@ -77,7 +77,8 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("hosting");
                 CacheForPoke.getInstance().setPostOffice(new Server());
-                pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load("maps/Prämap/maps/PRZCITY.TMX")));
+                CacheForPoke.getInstance().loadMaps(new File("core/assets/maps/Prämap/maps"));
+                pokemon.setScreen(new GameScreen(pokemon, CacheForPoke.getInstance().getActiveWorld().getActiveMap().getMap()));
                 CacheForPoke.getInstance().getLocalP().setName("HOst");
             }
         });
