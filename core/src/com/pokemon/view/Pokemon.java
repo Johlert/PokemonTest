@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.pokemon.view.screens.game.BattleScreen;
 import com.pokemon.view.screens.menu.MainMenuScreen;
 
 public class Pokemon extends Game {
@@ -35,8 +36,8 @@ public class Pokemon extends Game {
         assetManager.finishLoading();
 
         initSkin();
-
-        setScreen(new MainMenuScreen(this));
+        setScreen(new BattleScreen(this));
+        //setScreen(new MainMenuScreen(this));
     }
 
     private void initSkin() {
