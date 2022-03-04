@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="10" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="11" nextobjectid="2">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="10" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="11" nextobjectid="5">
  <tileset firstgid="1" source="../tilesets/Innenraum-Tileset.tsx"/>
  <tileset firstgid="1427" source="../tilesets/Transparent.tsx"/>
+ <tileset firstgid="1437" source="../tilesets/NPCs2.tsx"/>
  <layer id="1" name="Ground Layer" width="13" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -38,8 +39,8 @@
 0,470,471,564,504,505,320,0,0,318,319,0,0,
 0,0,0,0,535,536,0,0,1026,1027,1027,1028,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
+2945,2946,2947,2948,0,0,0,0,0,0,0,0,0,
+2995,2996,2997,2998,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,820,0,
 0,0,0,0,0,0,0,0,0,0,0,851,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -53,7 +54,7 @@
 1427,0,0,0,0,0,0,0,0,0,0,1427,1427,
 1427,0,0,0,0,0,0,0,1427,1427,1427,1427,1427,
 1427,0,0,0,0,0,0,0,0,0,0,0,1427,
-1427,0,0,0,0,0,0,0,1427,0,0,0,1427,
+1427,1427,1427,0,0,0,0,0,1427,0,0,0,1427,
 1427,1427,1427,0,0,0,0,0,0,0,0,0,1427,
 1427,1427,1427,0,0,0,0,0,0,0,0,1427,1427,
 1427,1427,1427,1427,1427,1427,0,1427,1427,1427,1427,1427,1427
@@ -93,6 +94,17 @@
     <property name="doorid" type="int" value="2"/>
     <property name="facing" value="south"/>
     <property name="map" value="PRZCITY"/>
+   </properties>
+  </object>
+  <object id="2" type="Dialogue" x="16" y="96" width="16" height="16">
+   <properties>
+    <property name="dialogue" value="I wonder when our grandkids will visit."/>
+   </properties>
+  </object>
+  <object id="4" type="Dialogue" x="32" y="96" width="16" height="16">
+   <properties>
+    <property name="dialogue">I really don't like my wifes cooking...
+I don't know how to tell her...</property>
    </properties>
   </object>
  </objectgroup>
