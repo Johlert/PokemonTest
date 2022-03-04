@@ -118,7 +118,7 @@ public @Data class Server implements PostOffice{
             loadMapFiles(f, objectOutputStream);
             //broadcast(new MapJoinEvent(name, new Position(55, 9)));
 
-            send(new MapJoinEvent(CacheForPoke.getInstance().getLocalP().getName(), new Position((int) CacheForPoke.getInstance().getLocalP().getTmo().getX(), (int) CacheForPoke.getInstance().getLocalP().getTmo().getY(), "maps/Prämap/maps/PRZCITY.TMX")));
+            send(new MapJoinEvent(CacheForPoke.getInstance().getLocalP().getName(), new Position((int) CacheForPoke.getInstance().getLocalP().getTmo().getX(), (int) CacheForPoke.getInstance().getLocalP().getTmo().getY(), "PRZCITY.TMX")));
             System.out.println(3);
             new Thread(new Runnable() {
                 @Override
