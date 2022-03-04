@@ -281,6 +281,7 @@ public @Data class GameScreen implements Screen {
             if(CacheForPoke.getInstance().getPostOffice() instanceof Server){
                 ((Server) CacheForPoke.getInstance().getPostOffice()).broadcast(mapJoinEvent, mapJoinEvent.getName());
             }
+            Player player;
 
             System.out.println("mapjoinevent found " + mapJoinEvent.getName() +" : " + mapJoinEvent.getPosition().getX() / Global.TILE_SIZE + " : " + mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
             String color = "cyan";
@@ -288,12 +289,12 @@ public @Data class GameScreen implements Screen {
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
             //maps/Prämap/maps/
             if(CacheForPoke.getInstance().getPlayers().containsKey(mapJoinEvent.getName())){
-                Player player = CacheForPoke.getInstance().getPlayers().get(mapJoinEvent.getName());
+                player = CacheForPoke.getInstance().getPlayers().get(mapJoinEvent.getName());
                 player.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapJoinEvent.getPosition().getMapPath()));
-                player.getTmo().setX(mapJoinEvent.getPosition().getX() / Global.TILE_SIZE);
-                player.getTmo().setY(mapJoinEvent.getPosition().getY() / Global.TILE_SIZE);
+                player.getTmo().setX(mapJoinEvent.getPosition().getX() / (float)Global.TILE_SIZE);
+                player.getTmo().setY(mapJoinEvent.getPosition().getY() / (float)Global.TILE_SIZE);
             }else{
-                Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
+                player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
                 CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
                 player.setName(mapJoinEvent.getName());
                 player.setAnimationSet(new AnimationSet(
@@ -305,6 +306,7 @@ public @Data class GameScreen implements Screen {
                         atlas.findRegion(color + "_stand_south"),
                         atlas.findRegion(color + "_stand_east"),
                         atlas.findRegion(color + "_stand_west")));
+
             }
 
 
