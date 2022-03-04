@@ -122,6 +122,7 @@ public @Data class GameScreen implements Screen {
         map.setName(mapName);
         map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName).getMap());
         playerLayer = map.getMap().getLayers().get("Entity Layer");
+        playerLayer.getObjects().add(player.getTmo());
         renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
         initControllers();
         
@@ -132,8 +133,15 @@ public @Data class GameScreen implements Screen {
                     player.setMap(map);
 
                     Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+
+                    int distort = 0;
+                    if (facing == Direction.UP){
+                        distort = 16;
+                    } else if (facing == Direction.DOWN){
+                        distort = -16;
+                    }
                     player.getTmo().setX(rectangle.x);
-                    player.getTmo().setY(rectangle.y);
+                    player.getTmo().setY(rectangle.y+distort);
                     player.setFacing(facing);
                     player.setState(Player.ACTOR_STATE.STANDING);
                 }
@@ -291,7 +299,6 @@ public @Data class GameScreen implements Screen {
                     atlas.findRegion(color + "_stand_south"),
                     atlas.findRegion(color + "_stand_east"),
                     atlas.findRegion(color + "_stand_west")));
-
         }
     }
 }
