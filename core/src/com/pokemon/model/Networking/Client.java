@@ -94,8 +94,10 @@ public class Client implements PostOffice {
 
 
             }
-            File ff = new File("serverMap/core/assets/maps/Prämap/maps/PRZCITY.TMX");
-            mms.switchToGameScreen(ff);
+            File ff = new File("serverMap/core/assets/maps/Prämap/maps");
+            CacheForPoke.getInstance().loadMaps(ff);
+
+            mms.switchToGameScreen(CacheForPoke.getInstance().getActiveWorld().getMaps().get("PRZCITY.tmx"));
 
 
             //player.setMap(new TmxMapLoader().load("D:\\Poke\\Praemap\\maps\\PRZCITY.TMX"));
