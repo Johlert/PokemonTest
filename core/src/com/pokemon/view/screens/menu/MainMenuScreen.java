@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -103,8 +104,8 @@ public class MainMenuScreen implements Screen {
         });
     }
 
-    public void switchToGameScreen(File file){
-        pokemon.setScreen(new GameScreen(pokemon, new TmxMapLoader().load(file.getPath())));
+    public void switchToGameScreen(TiledMap tmx){
+        pokemon.setScreen(new GameScreen(pokemon, tmx));
     }
 
     @Override
