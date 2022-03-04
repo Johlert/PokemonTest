@@ -2,11 +2,14 @@ package com.pokemon.view.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -14,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.dialogue.DialogueBox;
 import com.pokemon.view.utils.dialogue.OptionBox;
+import javafx.scene.control.ChoiceBox;
 
 public class BattleScreen implements Screen {
     private Pokemon pokemon;
@@ -47,6 +51,18 @@ public class BattleScreen implements Screen {
         DialogueBox dialogueBox = new DialogueBox(pokemon.getSkin());
         dialogueBox.write("lfgdmhöldfghml");
         table.add(dialogueBox).expand().align(Align.bottom).fill(1, 0.3f);
+
+        Table fightBox = new Table();
+        fightBox.setDebug(true);
+        fightBox.setFillParent(true);
+        stage.addActor(fightBox);
+
+        OptionBox op = new OptionBox(pokemon.getSkin(), 2, 2);
+        op.addOption("Fight");
+        op.addOption("Bag");
+        op.addOption("Pokemon");
+        op.addOption("Run");
+        fightBox.add(op).expand().align(Align.bottomRight).fill(0.4f,0.3f);
     }
 
     @Override
