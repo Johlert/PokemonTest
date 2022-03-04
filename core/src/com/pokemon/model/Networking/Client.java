@@ -24,10 +24,10 @@ public class Client implements PostOffice {
         this.mms = mms;
     }
 
-    ObjectOutputStream objectOutputStream;
-    MainMenuScreen mms;
-    Socket socket;
-    Net net = new LwjglNet(new LwjglApplicationConfiguration());
+    private ObjectOutputStream objectOutputStream;
+    private MainMenuScreen mms;
+    private Socket socket;
+    private Net net = new LwjglNet(new LwjglApplicationConfiguration());
 
     public boolean connect(String ip, String playername) {
         socket = net.newClientSocket(Net.Protocol.TCP, ip, 5000, new SocketHints());
@@ -125,8 +125,8 @@ public class Client implements PostOffice {
             }).start();
         }
 
-        boolean isListening = true;
-        Socket socket;
+        private boolean isListening = true;
+        private Socket socket;
     }
 
     @Override
