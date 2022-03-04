@@ -14,7 +14,7 @@ public @Data class WeaknessChart {
         if(pokemon.length == 1){
             return chart[attack.getId()][pokemon[0].getId()];
         }else{
-            //todo
+
         }
         return 1;
     }
