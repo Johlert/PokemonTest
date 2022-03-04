@@ -8,9 +8,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -119,10 +122,16 @@ public @Data class GameScreen implements Screen {
         map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName));
         renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
         initControllers();
-
-        //todo get x and y from door
-        //player.getTmo().setX(x);
-        //player.getTmo().setY(y);
+        
+        for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                if (object.getName().equals("door_" + doorId)){
+                    Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+                    player.getTmo().setX(rectangle.x);
+                    player.getTmo().setY(rectangle.y);
+                }
+            }
+        }
 
         player.setFacing(facing);
     }
