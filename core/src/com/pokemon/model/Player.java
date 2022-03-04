@@ -48,10 +48,10 @@ class Player implements Serializable, Trainer, Listener {
     private GameScreen gameScreen;
     private AnimationSet animationSet;
 
-    public Player(GameScreen screen, TiledMap map, TextureMapObject tmo, int x, int y) {
+    public Player(GameScreen screen, Map map, TextureMapObject tmo, int x, int y) {
         this.gameScreen = screen;
-        this.map = new Map();
-        this.map.setMap(map);
+        this.map = map;
+        //this.map.setMap(map);
         this.tmo = tmo;
         tmo.setX(x * Global.TILE_SIZE);
         tmo.setY(y * Global.TILE_SIZE);
@@ -127,7 +127,9 @@ class Player implements Serializable, Trainer, Listener {
                                 break;
                         }
 
-                        gameScreen.setMap( mapName, direction, doorId);
+                        if (CacheForPoke.getInstance().getLocalP().equals(this)){
+                            gameScreen.setMap( mapName, direction, doorId);
+                        }
                     }
                 }
             }
