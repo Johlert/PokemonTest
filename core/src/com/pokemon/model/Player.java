@@ -191,6 +191,7 @@ class Player implements Serializable, Trainer, Listener {
         } else {
             System.out.println(moveEvent.getName() + ":" + CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getX() + ":" +CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getY());
             System.out.println(moveEvent.getDirection());
+            CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).setState(ACTOR_STATE.STANDING);
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getTmo().setX(moveEvent.getPos().getX());
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getTmo().setY(moveEvent.getPos().getY());
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).move(moveEvent.getDirection());
