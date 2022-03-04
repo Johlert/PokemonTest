@@ -95,7 +95,7 @@ class Player implements Serializable, Trainer, Listener {
 
     private void initializeMove(int x1, int y1, Direction dir) {
         if(CacheForPoke.getInstance().getLocalP().equals(this)){
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir, new Position((int) tmo.getX(), (int) tmo.getY()));
+            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir, new Position((int) tmo.getX(), (int) tmo.getY(), ));//todo jan brauche nen filepath hier
             CacheForPoke.getInstance().getPostOffice().broadcast(mv);
             EventQueue.getINSTANCE().addEvent(mv);
         }
@@ -144,9 +144,10 @@ class Player implements Serializable, Trainer, Listener {
         if (moveEvent.getName().equals(CacheForPoke.getInstance().getLocalP().getName())) {
             move(moveEvent.getDirection());
         } else {
-            System.out.println(moveEvent.getName() + ":" + getX() + ":" + getY());
-            tmo.setX(moveEvent.getPos().getX());
-            tmo.setY(moveEvent.getPos().getY());
+            System.out.println(moveEvent.getName() + ":" + CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getX() + ":" +CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getY());
+            System.out.println(moveEvent.getDirection());
+            CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getTmo().setX(moveEvent.getPos().getX());
+            CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).getTmo().setY(moveEvent.getPos().getY());
             CacheForPoke.getInstance().getPlayers().get(moveEvent.getName()).move(moveEvent.getDirection());
 
         }
