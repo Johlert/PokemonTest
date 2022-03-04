@@ -2,7 +2,10 @@ package com.pokemon.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Direction;
+import com.pokemon.model.Events.EventQueue;
+import com.pokemon.model.Events.FacingEvent;
 import com.pokemon.model.Player;
 import com.pokemon.view.screens.game.GameScreen;
 
@@ -56,19 +59,27 @@ public class PlayerController extends InputAdapter {
         }
 
         if (keycode == Input.Keys.W) {
-            player.setFacing(Direction.UP);
+            FacingEvent facingEvent = new FacingEvent(Direction.UP, player.getName());
+            CacheForPoke.getInstance().getPostOffice().broadcast(facingEvent);
+            EventQueue.getINSTANCE().addEvent(facingEvent);
         }
 
         if (keycode == Input.Keys.S) {
-            player.setFacing(Direction.DOWN);
+            FacingEvent facingEvent = new FacingEvent(Direction.DOWN, player.getName());
+            CacheForPoke.getInstance().getPostOffice().broadcast(facingEvent);
+            EventQueue.getINSTANCE().addEvent(facingEvent);
         }
 
         if (keycode == Input.Keys.A) {
-            player.setFacing(Direction.LEFT);
+            FacingEvent facingEvent = new FacingEvent(Direction.LEFT, player.getName());
+            CacheForPoke.getInstance().getPostOffice().broadcast(facingEvent);
+            EventQueue.getINSTANCE().addEvent(facingEvent);
         }
 
         if (keycode == Input.Keys.D) {
-            player.setFacing(Direction.RIGHT);
+            FacingEvent facingEvent = new FacingEvent(Direction.RIGHT, player.getName());
+            CacheForPoke.getInstance().getPostOffice().broadcast(facingEvent);
+            EventQueue.getINSTANCE().addEvent(facingEvent);
         }
 
         return false;
