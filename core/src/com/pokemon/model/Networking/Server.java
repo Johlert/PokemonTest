@@ -15,6 +15,7 @@ import com.pokemon.model.*;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.MapJoinEvent;
+import com.pokemon.model.Events.SplitterEvent;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.AnimationSet;
 import lombok.Data;
@@ -32,10 +33,11 @@ public @Data class Server implements PostOffice{
 
     public Server() {
         server = net.newServerSocket(Net.Protocol.TCP, 5000, new ServerSocketHints());
-
+        CacheForPoke.getInstance().loadMaps(new File("core/assets/maps/Prämap/maps"));
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 while(true){
                     SocketHints sh = new SocketHints();
                     sh.connectTimeout = 1000000000;
@@ -45,7 +47,6 @@ public @Data class Server implements PostOffice{
                         Socket socket = server.accept(sh);
                         new Connection(socket);
                     } catch (Exception e) {
-
                     }
                 }
 
@@ -74,7 +75,7 @@ public @Data class Server implements PostOffice{
 
 
         @SneakyThrows
-        public Connection(Socket s) throws Exception{
+        public Connection(Socket s) {
             socket = s;
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             System.out.println(2);
@@ -84,6 +85,7 @@ public @Data class Server implements PostOffice{
             System.out.println(name);
             if(connections.containsKey(name)){
                 socket.dispose();
+                System.out.println("socket disposed");
                 return;
             }else {
                 connections.put(name, this);
@@ -104,6 +106,7 @@ public @Data class Server implements PostOffice{
                         atlas.findRegion(color + "_stand_south"),
                         atlas.findRegion(color + "_stand_east"),
                         atlas.findRegion(color + "_stand_west")));
+                System.out.println("finished loading animations");
             }
             System.out.println(2);
             //todo load player from save if required else send new Player
@@ -117,9 +120,21 @@ public @Data class Server implements PostOffice{
             File f = new File("core/assets/maps/Prämap");
             loadMapFiles(f, objectOutputStream);
             //broadcast(new MapJoinEvent(name, new Position(55, 9)));
+            //send(new SplitterEvent());
+            System.out.println(5);
+
+            Player pl = CacheForPoke.getInstance().getLocalP();
+            System.out.println("cachemap: " + CacheForPoke.getInstance().getActiveWorld().getActiveMap().getName());
+            System.out.println("playermap: " + pl.getMap().getName());
+            if(CacheForPoke.getInstance().getActiveWorld().getActiveMap().getName().equals(pl.getMap().getName())){
+                send(new MapJoinEvent(pl.getName(), new Position((int) pl.getTmo().getX(), (int)pl.getTmo().getY(), pl.getMap().getName())));
+                System.out.println("sending 1 event");
+            }
             for(Player p : CacheForPoke.getInstance().getPlayers().values()){
-                if(CacheForPoke.getInstance().getActiveWorld().getName().equals(p.getMap().getName())){
-                    send(new MapJoinEvent(p.getName(), new Position((int) p.getTmo().getX(), (int)p.getTmo().getY(), p.getMap().getName())));
+                if(CacheForPoke.getInstance().getActiveWorld().getActiveMap().getName().equals(p.getMap().getName())){
+                    if(!p.getName().equals(name)){
+                        send(new MapJoinEvent(p.getName(), new Position((int) p.getTmo().getX(), (int)p.getTmo().getY(), p.getMap().getName())));
+                    }
                 }
             }
 
