@@ -154,8 +154,8 @@ public @Data class GameScreen implements Screen {
 
     private void initControllers() {
         playerController = new PlayerController(this, player);
-        dialogueController = new DialogueController(this, dialogueBox, player);
-        optionBoxController = new OptionBoxController(this, optionBox, player);
+        dialogueController = new DialogueController(dialogueBox, player);
+        optionBoxController = new OptionBoxController(optionBox, player);
         utilController = new UtilController(this);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
