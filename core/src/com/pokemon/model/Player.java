@@ -25,7 +25,7 @@ public @Data
 class Player implements Serializable, Trainer, Listener {
     private float ANIM_DUR = 0.5f;
     private UserSettings userSettings = new UserSettings();
-    private TiledMap map;
+    private Map map;
     private TextureMapObject tmo;
     private String name;
     private Inventory inventory;
