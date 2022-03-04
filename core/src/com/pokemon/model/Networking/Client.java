@@ -9,6 +9,7 @@ import com.badlogic.gdx.net.SocketHints;
 import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Events.Event;
 import com.pokemon.model.Events.EventQueue;
+import com.pokemon.model.Events.SplitterEvent;
 import com.pokemon.model.Player;
 import com.pokemon.view.screens.menu.MainMenuScreen;
 import lombok.SneakyThrows;
@@ -94,14 +95,18 @@ public class Client implements PostOffice {
 
 
             }
+            System.out.println("loading maps");
             File ff = new File("serverMap/core/assets/maps/Prämap/maps");
             CacheForPoke.getInstance().loadMaps(ff);
-
-            mms.switchToGameScreen(CacheForPoke.getInstance().getActiveWorld().getMaps().get("PRZCITY"));
+            System.out.println("switching to starting map");
+            mms.switchToGameScreen(CacheForPoke.getInstance().getActiveWorld().getMaps().get("PRZCITY").getMap());
 
 
             //player.setMap(new TmxMapLoader().load("D:\\Poke\\Praemap\\maps\\PRZCITY.TMX"));
-            EventQueue.getINSTANCE().addEvent((Event) f);
+            if(!(f instanceof SplitterEvent)){
+                EventQueue.getINSTANCE().addEvent((Event) f);
+            }
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
