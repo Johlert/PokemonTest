@@ -91,7 +91,7 @@ public @Data class Server implements PostOffice{
                 String color = "cyan";
                 TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
                 TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
-                Player player = new Player(null, CacheForPoke.getInstance().getLocalP().getMap(), new TextureMapObject(textureRegion),55, 9);
+                Player player = new Player(null, CacheForPoke.getInstance().getLocalP().getMap().getMap(), new TextureMapObject(textureRegion),55, 9);
                 CacheForPoke.getInstance().getPlayers().put(name, player);
                 player.setName(name);
 
