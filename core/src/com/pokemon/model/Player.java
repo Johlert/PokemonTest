@@ -128,7 +128,7 @@ class Player implements Serializable, Trainer, Listener {
                         }
 
                         if (CacheForPoke.getInstance().getLocalP().equals(this)){
-                            gameScreen.setMap( mapName, direction, doorId);
+                            map = gameScreen.setMap( mapName, direction, doorId);
                         }
                     }
                 }
