@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public @Data class Map implements Serializable {
 
-    TiledMap map;
-    String name;
+    private TiledMap map;
+    private String name;
 
 }
