@@ -128,9 +128,14 @@ public @Data class GameScreen implements Screen {
         for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()) {
             if (object instanceof RectangleMapObject) {
                 if (object.getName().equals("door_" + doorId)){
+
+                    player.setMap(map);
+
                     Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                     player.getTmo().setX(rectangle.x);
                     player.getTmo().setY(rectangle.y);
+                    player.setFacing(facing);
+                    player.setState(Player.ACTOR_STATE.STANDING);
                 }
             }
         }
@@ -196,7 +201,16 @@ public @Data class GameScreen implements Screen {
 
         overlayStage.draw();
         overlayStage.act(delta);
+
+        if (tempx !=  player.getX() || tempy !=  player.getY()) {
+            tempx =  player.getX();
+            tempy = player.getY();
+            System.out.println("Player x: " + player.getX());
+            System.out.println("Player y: " + player.getY());
+        }
     }
+
+    float tempx, tempy;
 
     public void renderMap(float delta) {
         Player player = CacheForPoke.getInstance().getLocalP();
