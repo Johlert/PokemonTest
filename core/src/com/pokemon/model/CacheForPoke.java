@@ -1,11 +1,13 @@
 package com.pokemon.model;
 
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.pokemon.model.Events.EventHandler;
 import com.pokemon.model.Items.Item;
 import com.pokemon.model.Networking.PostOffice;
 import com.pokemon.model.Pokemon.Gen;
 import lombok.Data;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -28,17 +30,15 @@ public @Data class CacheForPoke {
 
 
     private CacheForPoke(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                CacheForPoke.this.load();
-            }
-        }).start();
         handler.start();
     }
 
-    private void load(){
-
+    public void loadMaps(File path){
+        TmxMapLoader tmx = new TmxMapLoader();
+        activeWorld = new World();
+        for(File f : path.listFiles()){
+            activeWorld.getMaps().put(f.getName(), tmx.load(f.getPath()));
+        }
     }
 
     public static CacheForPoke getInstance() {
