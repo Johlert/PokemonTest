@@ -87,9 +87,12 @@ public @Data class GameScreen implements Screen {
         tmo.setY(0);
 
         playerLayer.getObjects().add(tmo);
-        player = new Player(this, map, tmo, 54, 8);
+
         if(!(CacheForPoke.getInstance().getPostOffice() instanceof Server)){
+            player = new Player(this, map, tmo, 55, 9);
             player.setName("egal");
+        }else{
+            player = new Player(this, map, tmo, 54, 8);
         }
 
         player.setAnimationSet(new AnimationSet(
