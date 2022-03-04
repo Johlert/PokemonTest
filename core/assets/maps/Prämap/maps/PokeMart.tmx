@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="11" nextobjectid="2">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="12" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/Innenraum-Tileset.tsx"/>
  <tileset firstgid="1427" source="../tilesets/Dawn.tsx"/>
  <tileset firstgid="16185" source="../tilesets/Transparent.tsx"/>
@@ -54,6 +54,19 @@
 16185,0,16185,16185,0,0,0,0,16185,16185,0,16185,16185,
 16185,0,0,0,0,0,0,0,0,0,0,0,16185,
 16185,16185,16185,16185,16185,0,16185,16185,16185,16185,16185,16185,16185
+</data>
+ </layer>
+ <layer id="11" name="Spawn Layer" width="13" height="9">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer id="8" name="Path Layer" width="13" height="9">
