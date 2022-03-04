@@ -90,8 +90,6 @@ public class Client implements PostOffice {
                     FileOutputStream fos = new FileOutputStream(testTemp);
                     fos.write(fileTransferWrapper.getContent());
                     fos.flush();
-                }else {
-                    System.out.println("why");
                 }
 
 
