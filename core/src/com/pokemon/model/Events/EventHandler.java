@@ -27,9 +27,9 @@ public class EventHandler extends Thread{
                         listener.onMove((MoveEvent) event);
                     }else if(event instanceof  MapJoinEvent){
                         listener.onMapJoin((MapJoinEvent) event);
+                    }else if(event instanceof  FacingEvent){
+                        listener.onPlayerFacing((FacingEvent) event);
                     }
-
-                    //todo add event calling for rest of the events
 
                 }
 
