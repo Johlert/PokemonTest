@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="10" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#000000" nextlayerid="11" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/Innenraum-Tileset.tsx"/>
  <tileset firstgid="1427" source="../tilesets/Dawn.tsx"/>
  <tileset firstgid="16185" source="../tilesets/Transparent.tsx"/>
@@ -29,19 +29,7 @@
 0,0,0,0,663,664,665,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="9" name="Entity Layer" width="13" height="9">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
+ <objectgroup id="10" name="Entity Layer"/>
  <layer id="4" name="Upper Layer" width="13" height="9">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,729,730,731,0,0,
@@ -55,9 +43,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group id="7" name="Util Layers">
-  <layer id="6" name="Collision Layer" width="13" height="9">
-   <data encoding="csv">
+ <layer id="6" name="Collision Layer" width="13" height="9" visible="0">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,
 16185,0,0,0,16185,0,0,0,0,0,0,0,16185,
@@ -66,11 +53,11 @@
 16185,0,0,0,0,0,0,0,16185,16185,0,16185,16185,
 16185,0,16185,16185,0,0,0,0,16185,16185,0,16185,16185,
 16185,0,0,0,0,0,0,0,0,0,0,0,16185,
-16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185,16185
+16185,16185,16185,16185,16185,0,16185,16185,16185,16185,16185,16185,16185
 </data>
-  </layer>
-  <layer id="8" name="Path Layer" width="13" height="9">
-   <data encoding="csv">
+ </layer>
+ <layer id="8" name="Path Layer" width="13" height="9">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -81,7 +68,14 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <objectgroup id="5" name="Objects"/>
- </group>
+ </layer>
+ <objectgroup id="5" name="Objects">
+  <object id="1" name="door_0" type="door" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="doorid" type="int" value="1"/>
+    <property name="facing" value="south"/>
+    <property name="map" value="PRZCITY"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

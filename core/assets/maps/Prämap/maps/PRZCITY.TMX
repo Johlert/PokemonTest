@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="117" height="58" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="28">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="117" height="58" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="38">
  <tileset firstgid="1" source="../tilesets/Dawn.tsx"/>
  <tileset firstgid="14759" source="../tilesets/Transparent.tsx"/>
  <tileset firstgid="14769" source="../tilesets/BW Ultimate Tileset.tsx"/>
@@ -314,5 +314,42 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="Objects"/>
+ <objectgroup id="4" name="Objects">
+  <object id="30" name="door_0" type="door" x="1040" y="384" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="PokeCenter"/>
+   </properties>
+  </object>
+  <object id="31" name="door_1" type="door" x="912" y="384" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="PokeMart"/>
+   </properties>
+  </object>
+  <object id="34" name="door_2" type="door" x="944" y="256" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="House1"/>
+   </properties>
+  </object>
+  <object id="35" name="door_3" type="door" x="1040" y="256" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="House2"/>
+   </properties>
+  </object>
+  <object id="36" name="door_4" type="door" x="1168" y="256" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="School"/>
+   </properties>
+  </object>
+  <object id="37" name="door_5" type="door" x="656" y="656" width="16" height="16">
+   <properties>
+    <property name="facing" value="north"/>
+    <property name="map" value="House3"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
