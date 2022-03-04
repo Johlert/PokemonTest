@@ -6,7 +6,7 @@ import com.pokemon.model.Pokemon.Trainer;
 
 public class NPCTrainer extends NPC implements Trainer {
 
-    //todo
+
 
     @Override
     public Pokemon getActivePokemon() {
