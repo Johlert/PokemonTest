@@ -279,18 +279,26 @@ public @Data class GameScreen implements Screen {
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
             //maps/Prämap/maps/
-            Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
-            CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
-            player.setName(mapJoinEvent.getName());
-            player.setAnimationSet(new AnimationSet(
-                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
-                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
-                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
-                    new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
-                    atlas.findRegion(color + "_stand_north"),
-                    atlas.findRegion(color + "_stand_south"),
-                    atlas.findRegion(color + "_stand_east"),
-                    atlas.findRegion(color + "_stand_west")));
+            if(CacheForPoke.getInstance().getPlayers().containsKey(mapJoinEvent.getName())){
+                Player player = CacheForPoke.getInstance().getPlayers().get(mapJoinEvent.getName());
+                player.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapJoinEvent.getPosition().getMapPath()));
+                player.getTmo().setX(mapJoinEvent.getPosition().getX() / Global.TILE_SIZE);
+                player.getTmo().setY(mapJoinEvent.getPosition().getY() / Global.TILE_SIZE);
+            }else{
+                Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
+                CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
+                player.setName(mapJoinEvent.getName());
+                player.setAnimationSet(new AnimationSet(
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_north"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_south"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_east"), Animation.PlayMode.LOOP_PINGPONG),
+                        new Animation<>(player.getANIM_DUR() / 2f, atlas.findRegions(color + "_walk_west"), Animation.PlayMode.LOOP_PINGPONG),
+                        atlas.findRegion(color + "_stand_north"),
+                        atlas.findRegion(color + "_stand_south"),
+                        atlas.findRegion(color + "_stand_east"),
+                        atlas.findRegion(color + "_stand_west")));
+            }
+
 
         }
     }
