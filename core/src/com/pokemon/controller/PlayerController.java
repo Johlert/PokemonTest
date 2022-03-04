@@ -1,5 +1,6 @@
 package com.pokemon.controller;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.pokemon.model.Direction;
 import com.pokemon.model.Player;
@@ -52,6 +53,22 @@ public class PlayerController extends InputAdapter {
 
         if (keycode == player.getUserSettings().getMoveRight()) {
             right = true;
+        }
+
+        if (keycode == Input.Keys.W) {
+            player.setFacing(Direction.UP);
+        }
+
+        if (keycode == Input.Keys.S) {
+            player.setFacing(Direction.DOWN);
+        }
+
+        if (keycode == Input.Keys.A) {
+            player.setFacing(Direction.LEFT);
+        }
+
+        if (keycode == Input.Keys.D) {
+            player.setFacing(Direction.RIGHT);
         }
 
         return false;
