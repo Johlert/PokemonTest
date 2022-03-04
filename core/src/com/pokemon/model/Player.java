@@ -1,17 +1,19 @@
 package com.pokemon.model;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Rectangle;
 import com.pokemon.controller.UserSettings;
 import com.pokemon.model.Events.EventQueue;
 import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
-import com.pokemon.model.Networking.Server;
 import com.pokemon.model.Pokemon.Pokemon;
 import com.pokemon.model.Pokemon.Trainer;
 import com.pokemon.view.screens.game.GameScreen;
@@ -48,7 +50,8 @@ class Player implements Serializable, Trainer, Listener {
 
     public Player(GameScreen screen, TiledMap map, TextureMapObject tmo, int x, int y) {
         this.gameScreen = screen;
-        this.map = map;
+        this.map = new Map();
+        this.map.setMap(map);
         this.tmo = tmo;
         tmo.setX(x * Global.TILE_SIZE);
         tmo.setY(y * Global.TILE_SIZE);
@@ -75,22 +78,62 @@ class Player implements Serializable, Trainer, Listener {
             return false;
         }
 
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Collision Layer");
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getMap().getLayers().get("Collision Layer");
+
+
+
+        boolean temp = false;
 
         if (layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) == null) {
             initializeMove(x, y, dir);
             tmo.setX(x + dir.getDx());
             tmo.setY(y + dir.getDy());
-            return true;
+            temp = true;
         } else if (!(boolean) layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE).getTile().getProperties().get("collision")) {
             gameScreen.initiateDialogue("Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod tempor incididunt");
             initializeMove(x, y, dir);
             tmo.setX(x + dir.getDx());
             tmo.setY(y + dir.getDy());
-            return true;
-        } else {
-            return false;
+            temp = true;
         }
+
+        for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
+            if (object instanceof RectangleMapObject){
+                Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+
+                if (rectangle.contains(getX(), getY())){
+                    String mapName = (String) object.getProperties().get("map");
+                    String facing = (String) object.getProperties().get("facing");
+                    int doorId;
+                    if (object.getProperties().get("doorid") == null){
+                        doorId = 0;
+                    } else {
+                        doorId = (int) object.getProperties().get("doorid");
+                    }
+
+                    Direction direction = null;
+
+                    switch (facing) {
+                        case "north":
+                            direction = Direction.UP;
+                            break;
+                        case "south":
+                            direction = Direction.DOWN;
+                            break;
+                        case "east":
+                            direction = Direction.RIGHT;
+                            break;
+                        case "west":
+                            direction = Direction.LEFT;
+                            break;
+                    }
+
+                    gameScreen.setMap( mapName, direction, doorId);
+                }
+            }
+        }
+
+        return temp;
     }
 
     private void initializeMove(int x1, int y1, Direction dir) {
