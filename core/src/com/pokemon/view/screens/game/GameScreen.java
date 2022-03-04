@@ -21,29 +21,23 @@ import com.pokemon.controller.DialogueController;
 import com.pokemon.controller.OptionBoxController;
 import com.pokemon.controller.PlayerController;
 import com.pokemon.controller.UtilController;
-import com.pokemon.model.CacheForPoke;
+import com.pokemon.model.*;
 import com.pokemon.model.Events.Listener;
 import com.pokemon.model.Events.MapJoinEvent;
 import com.pokemon.model.Events.MoveEvent;
-import com.pokemon.model.Global;
 import com.pokemon.model.Networking.Server;
-import com.pokemon.model.Player;
 import com.pokemon.view.Pokemon;
 import com.pokemon.view.utils.AnimationSet;
 import com.pokemon.view.utils.dialogue.DialogueBox;
 import com.pokemon.view.utils.dialogue.OptionBox;
 import lombok.Data;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 public @Data class GameScreen implements Screen {
     //w: 297 h: 167
     public static final int V_WIDTH = 400;
     public static final int V_HEIGHT = 310;
     private final Pokemon pokemon;
-    private final TiledMap map;
+    private Map map;
     private final float overlayScale = 3f;
     private PlayerController playerController;
     private DialogueController dialogueController;
@@ -63,7 +57,8 @@ public @Data class GameScreen implements Screen {
 
     public GameScreen(Pokemon pokemon, TiledMap map) {
         this.pokemon = pokemon;
-        this.map = map;
+        this.map = new Map();
+        this.map.setMap(map);
         CacheForPoke.getInstance().getHandler().addListener(new ScreenListener());
     }
 
@@ -79,7 +74,7 @@ public @Data class GameScreen implements Screen {
         TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
         String color = "brown";
 
-        playerLayer = map.getLayers().get("Entity Layer");
+        playerLayer = map.getMap().getLayers().get("Entity Layer");
         textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
 
         TextureMapObject tmo = new TextureMapObject(textureRegion);
@@ -89,10 +84,10 @@ public @Data class GameScreen implements Screen {
         playerLayer.getObjects().add(tmo);
 
         if(!(CacheForPoke.getInstance().getPostOffice() instanceof Server)){
-            player = new Player(this, map, tmo, 55, 9);
+            player = new Player(this, map.getMap(), tmo, 55, 9);
             player.setName("egal");
         }else{
-            player = new Player(this, map, tmo, 54, 8);
+            player = new Player(this, map.getMap(), tmo, 54, 8);
         }
 
         player.setAnimationSet(new AnimationSet(
@@ -114,7 +109,22 @@ public @Data class GameScreen implements Screen {
         gamePort = new FitViewport(V_WIDTH, V_HEIGHT, gameCam);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        renderer = new OrthogonalTiledMapRendererWithSprites(map, pokemon.getBatch());
+        renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
+    }
+
+    public void setMap(String mapName, Direction facing, int doorId) {
+        playerLayer = map.getMap().getLayers().get("Entity Layer");
+        map = new Map();
+        map.setName(mapName);
+        map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName));
+        renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
+        initControllers();
+
+        //todo get x and y from door
+        //player.getTmo().setX(x);
+        //player.getTmo().setY(y);
+
+        player.setFacing(facing);
     }
 
     private void initControllers() {
@@ -168,7 +178,6 @@ public @Data class GameScreen implements Screen {
                 value.getTmo().setTextureRegion(value.getSprite());
                 value.update(delta);
             }
-
         }
 
         renderMap(delta);
@@ -191,7 +200,7 @@ public @Data class GameScreen implements Screen {
         return player;
     }
 
-    public TiledMap getMap() {
+    public Map getMap() {
         return map;
     }
 
@@ -240,7 +249,7 @@ public @Data class GameScreen implements Screen {
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
             //maps/Prämap/maps/
-            Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
+            Player player = new Player(null, map.getMap(), new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
             CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
             player.setName(mapJoinEvent.getName());
             player.setAnimationSet(new AnimationSet(
