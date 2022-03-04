@@ -90,11 +90,7 @@ class Player implements Serializable, Trainer, Listener {
             tmo.setY(y + dir.getDy());
             temp = true;
         } else if (!(boolean) layer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE).getTile().getProperties().get("collision")) {
-            gameScreen.initiateDialogue("Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod tempor incididunt");
-            initializeMove(x, y, dir);
-            tmo.setX(x + dir.getDx());
-            tmo.setY(y + dir.getDy());
-            temp = true;
+            gameScreen.initiateDialogue("TRAINER TIPS\nCatch pokemon and expand your collection.\nThe more you have, the easier it is to battle.");
         }
 
         for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
