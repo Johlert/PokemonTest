@@ -138,7 +138,7 @@ class Player implements Serializable, Trainer, Listener {
 
     private void initializeMove(int x1, int y1, Direction dir) {
         if(CacheForPoke.getInstance().getLocalP().equals(this)){
-            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir, new Position((int) tmo.getX(), (int) tmo.getY(), ""));//todo jan brauche nen filepath hier
+            MoveEvent mv = new MoveEvent(CacheForPoke.getInstance().getLocalP().getName(), dir, new Position((int) tmo.getX(), (int) tmo.getY(), map.getName()));
             CacheForPoke.getInstance().getPostOffice().broadcast(mv);
             EventQueue.getINSTANCE().addEvent(mv);
         }
