@@ -79,7 +79,7 @@ class Player implements Serializable, Trainer, Listener {
         }
 
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getMap().getLayers().get("Collision Layer");
-
+        TiledMapTileLayer spawnLayer = (TiledMapTileLayer) map.getMap().getLayers().get("Spawn Layer");
 
 
         boolean temp = false;
@@ -93,38 +93,42 @@ class Player implements Serializable, Trainer, Listener {
             gameScreen.initiateDialogue("TRAINER TIPS\nCatch pokemon and expand your collection.\nThe more you have, the easier it is to battle.");
         }
 
-        for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
-            if (object instanceof RectangleMapObject){
-                Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+        if (spawnLayer.getCell((x + dir.getDx()) / Global.TILE_SIZE, (y + dir.getDy()) / Global.TILE_SIZE) != null){
+            //todo start battle with a random pokemon
+        } else {
+            for (MapObject object : map.getMap().getLayers().get("Objects").getObjects()){
+                if (object instanceof RectangleMapObject){
+                    Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
-                if (rectangle.contains(getX(), getY())){
-                    String mapName = (String) object.getProperties().get("map");
-                    String facing = (String) object.getProperties().get("facing");
-                    int doorId;
-                    if (object.getProperties().get("doorid") == null){
-                        doorId = 0;
-                    } else {
-                        doorId = (int) object.getProperties().get("doorid");
+                    if (rectangle.contains(getX(), getY())){
+                        String mapName = (String) object.getProperties().get("map");
+                        String facing = (String) object.getProperties().get("facing");
+                        int doorId;
+                        if (object.getProperties().get("doorid") == null){
+                            doorId = 0;
+                        } else {
+                            doorId = (int) object.getProperties().get("doorid");
+                        }
+
+                        Direction direction = null;
+
+                        switch (facing) {
+                            case "north":
+                                direction = Direction.UP;
+                                break;
+                            case "south":
+                                direction = Direction.DOWN;
+                                break;
+                            case "east":
+                                direction = Direction.RIGHT;
+                                break;
+                            case "west":
+                                direction = Direction.LEFT;
+                                break;
+                        }
+
+                        gameScreen.setMap( mapName, direction, doorId);
                     }
-
-                    Direction direction = null;
-
-                    switch (facing) {
-                        case "north":
-                            direction = Direction.UP;
-                            break;
-                        case "south":
-                            direction = Direction.DOWN;
-                            break;
-                        case "east":
-                            direction = Direction.RIGHT;
-                            break;
-                        case "west":
-                            direction = Direction.LEFT;
-                            break;
-                    }
-
-                    gameScreen.setMap( mapName, direction, doorId);
                 }
             }
         }
