@@ -3,7 +3,6 @@ package com.pokemon.model.Items;
 import java.io.Serializable;
 
 public abstract class ItemStack implements Serializable {
-
     private int amount;
     private Item item;
 

@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 
-
 /**
  * THis is the cache where the data is loaded into eg all the different info that is required to run
  */
@@ -25,8 +24,6 @@ public @Data class CacheForPoke {
     private World activeWorld;
     private EventHandler handler = new EventHandler();
     private PostOffice postOffice;
-
-
 
     private CacheForPoke(){
         handler.start();

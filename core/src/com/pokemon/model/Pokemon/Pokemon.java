@@ -3,7 +3,6 @@ package com.pokemon.model.Pokemon;
 import lombok.Data;
 
 public @Data class Pokemon {
-
     private int level;
     private int exp;
     private String name;
@@ -19,5 +18,4 @@ public @Data class Pokemon {
     private int specialAttack;
     private int specialDefense;
     private int speed;
-
 }

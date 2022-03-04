@@ -17,17 +17,14 @@ import lombok.SneakyThrows;
 import java.io.*;
 
 public class Client implements PostOffice {
-
-
-
-    public Client(MainMenuScreen mms){
-        this.mms = mms;
-    }
-
     private ObjectOutputStream objectOutputStream;
     private MainMenuScreen mms;
     private Socket socket;
     private Net net = new LwjglNet(new LwjglApplicationConfiguration());
+
+    public Client(MainMenuScreen mms){
+        this.mms = mms;
+    }
 
     public boolean connect(String ip, String playername) {
         socket = net.newClientSocket(Net.Protocol.TCP, ip, 5000, new SocketHints());
@@ -60,6 +57,9 @@ public class Client implements PostOffice {
     }
 
     public class Listener {
+        private boolean isListening = true;
+        private Socket socket;
+
         @SneakyThrows
         public Listener(Socket s, String localPlayer) {
             socket = s;
@@ -92,8 +92,6 @@ public class Client implements PostOffice {
                     fos.write(fileTransferWrapper.getContent());
                     fos.flush();
                 }
-
-
             }
             System.out.println("loading maps");
             File ff = new File("serverMap/core/assets/maps/Prämap/maps");
@@ -111,8 +109,6 @@ public class Client implements PostOffice {
                 @Override
                 public void run() {
                     try {
-
-
                         while (isListening) {
                             Event event = (Event) objectInputStream.readObject();
                             EventQueue.getINSTANCE().addEvent(event);
@@ -125,8 +121,7 @@ public class Client implements PostOffice {
             }).start();
         }
 
-        private boolean isListening = true;
-        private Socket socket;
+
     }
 
     @Override

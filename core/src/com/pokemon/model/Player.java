@@ -47,7 +47,6 @@ class Player implements Serializable, Trainer, Listener {
     public Player(GameScreen screen, Map map, TextureMapObject tmo, int x, int y) {
         this.gameScreen = screen;
         this.map = map;
-        //this.map.setMap(map);
         this.tmo = tmo;
         tmo.setX(x * Global.TILE_SIZE);
         tmo.setY(y * Global.TILE_SIZE);

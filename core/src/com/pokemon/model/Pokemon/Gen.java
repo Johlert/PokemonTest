@@ -3,11 +3,9 @@ package com.pokemon.model.Pokemon;
 import java.util.HashMap;
 
 public class Gen {
-
     private String name;
     private HashMap<Integer, Pokemon> pokemons = new HashMap<>();
     private WeaknessChart weaknessChart = new WeaknessChart();
-
 
     public Gen(String name, String weaknessName){
         this.name = name;

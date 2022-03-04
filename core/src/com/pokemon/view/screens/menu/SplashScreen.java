@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pokemon.view.Pokemon;
-import com.pokemon.view.utils.tween.*;
 import com.pokemon.view.utils.tween.SpriteAccessor;
 
 public class SplashScreen implements Screen {

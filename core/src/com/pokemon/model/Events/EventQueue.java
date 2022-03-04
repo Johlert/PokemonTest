@@ -1,11 +1,8 @@
 package com.pokemon.model.Events;
 
-import com.pokemon.model.CacheForPoke;
-
 import java.util.LinkedList;
 
 public class EventQueue {
-
     private static EventQueue INSTANCE;
     private volatile LinkedList<Event> events = new LinkedList<>();
 

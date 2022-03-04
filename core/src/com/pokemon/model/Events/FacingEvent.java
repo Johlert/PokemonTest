@@ -4,7 +4,6 @@ import com.pokemon.model.Direction;
 import lombok.Data;
 
 public @Data class FacingEvent implements Event{
-
     private Direction direction;
     private String name;
 

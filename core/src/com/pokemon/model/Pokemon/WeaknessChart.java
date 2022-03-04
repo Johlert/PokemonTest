@@ -3,9 +3,7 @@ package com.pokemon.model.Pokemon;
 import lombok.Data;
 
 public @Data class WeaknessChart {
-
     private String name;
-    //private HashMap<Type, Integer> chart;
     private double[][] chart;
 
     public WeaknessChart(){}
@@ -18,5 +16,4 @@ public @Data class WeaknessChart {
         }
         return 1;
     }
-
 }

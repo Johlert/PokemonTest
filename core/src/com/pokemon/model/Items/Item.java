@@ -1,13 +1,9 @@
 package com.pokemon.model.Items;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import java.io.Serializable;
 
 public abstract class Item implements Serializable {
-
     //items are consumeble items
-
     private int id;
     private String name;
     private String description;

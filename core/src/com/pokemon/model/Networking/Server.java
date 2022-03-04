@@ -25,7 +25,6 @@ import java.io.*;
 import java.util.HashMap;
 
 public @Data class Server implements PostOffice{
-
     private HashMap<String, Connection> connections = new HashMap<>();
     private int counter = 0;
     private ServerSocket server;
@@ -49,13 +48,10 @@ public @Data class Server implements PostOffice{
                     } catch (Exception e) {
                     }
                 }
-
             }
         });
         t.start();
     }
-
-
 
     public static void loadMapFiles(File f, ObjectOutputStream objectOutputStream) throws Exception {
         System.out.println("sending map files");
@@ -68,11 +64,13 @@ public @Data class Server implements PostOffice{
                 FileTransferWrapper fileTransferWrapper = new FileTransferWrapper(file);
                 objectOutputStream.writeObject(fileTransferWrapper);
             }
-
         }
     }
     public @Data class Connection{
-
+        private boolean isListening = true;
+        private Socket socket;
+        private Player player;
+        private ObjectOutputStream objectOutputStream;
 
         @SneakyThrows
         public Connection(Socket s) {
@@ -111,7 +109,6 @@ public @Data class Server implements PostOffice{
             System.out.println(2);
             //player = new Player( null, CacheForPoke.getInstance().getLocalP().getMap(), CacheForPoke.getInstance().getLocalP().getTmo(), 3 , 3);
 
-
             //player = new Player(null, null, 3 , 3);
             //send(player);
             System.out.println(4);
@@ -141,8 +138,6 @@ public @Data class Server implements PostOffice{
                 @Override
                 public void run() {
                     try {
-
-
                         while (isListening) {
                             Event event = (Event) objectInputStream.readObject();
                             EventQueue.getINSTANCE().addEvent(event);
@@ -154,10 +149,7 @@ public @Data class Server implements PostOffice{
                 }
             }).start();
         }
-        private boolean isListening = true;
-        private Socket socket;
-        private Player player;
-        private ObjectOutputStream objectOutputStream;
+
         /**
          * All fields in s must be Serializable and all fields of the fields in s must be Serializable
          * @param s
@@ -172,7 +164,6 @@ public @Data class Server implements PostOffice{
                 ex.printStackTrace();
             }
         }
-
     }
 
     @Override

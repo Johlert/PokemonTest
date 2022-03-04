@@ -7,7 +7,6 @@ import lombok.Data;
 
 public @Data
 class MapJoinEvent implements Event{
-
     public MapJoinEvent(String name, Position position){
         this.name = name;
         this.position = position;

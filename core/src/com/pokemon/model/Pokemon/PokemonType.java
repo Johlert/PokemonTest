@@ -6,8 +6,6 @@ import lombok.Data;
 import java.util.HashMap;
 
 public @Data class PokemonType {
-
-
     private String name;
     private int id;
     private Texture texture;
@@ -26,7 +24,4 @@ public @Data class PokemonType {
     private int specialAttack;
     private int specialDefense;
     private int speed;
-
-
-
 }

@@ -7,7 +7,6 @@ import com.pokemon.model.Position;
 import lombok.Data;
 
 public @Data class MoveEvent implements Event{
-
     private String name;
     private Direction direction;
     private Position pos;

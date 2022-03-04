@@ -119,7 +119,6 @@ public @Data class GameScreen implements Screen {
     }
 
     public Map setMap(String mapName, Direction facing, int doorId) {
-        //player.setState(Player.ACTOR_STATE.STANDING);
         map = new Map();
         map.setName(mapName);
         map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName).getMap());
@@ -190,9 +189,6 @@ public @Data class GameScreen implements Screen {
         optionBox.addOption("Dragon Claw");
 
         dialogTable.add(optionBox);
-
-        //overlayTable.add(dialogTable).expand().align(Align.bottom);
-        //overlayStage.setDebugAll(true);
     }
 
     @Override
@@ -212,16 +208,7 @@ public @Data class GameScreen implements Screen {
 
         overlayStage.draw();
         overlayStage.act(delta);
-
-        if (tempx !=  player.getX() || tempy !=  player.getY()) {
-            tempx =  player.getX();
-            tempy = player.getY();
-            //System.out.println("Player x: " + player.getX());
-            //System.out.println("Player y: " + player.getY());
-        }
     }
-
-    float tempx, tempy;
 
     public void renderMap(float delta) {
         Player player = CacheForPoke.getInstance().getLocalP();
@@ -312,10 +299,7 @@ public @Data class GameScreen implements Screen {
                         atlas.findRegion(color + "_stand_south"),
                         atlas.findRegion(color + "_stand_east"),
                         atlas.findRegion(color + "_stand_west")));
-
             }
-
-
         }
     }
 }

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public @Getter @Setter class PokeBall extends Item {
-
-
     //pokeballs are used only in combat. They are 1 time use items
     private int captureModifier;
 
