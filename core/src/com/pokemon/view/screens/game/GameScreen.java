@@ -62,6 +62,8 @@ public @Data class GameScreen implements Screen {
         this.pokemon = pokemon;
         this.map = new Map();
         this.map.setMap(map);
+        this.map.setName("PRZCITY");
+
         CacheForPoke.getInstance().getHandler().addListener(new ScreenListener());
     }
 
@@ -87,10 +89,10 @@ public @Data class GameScreen implements Screen {
         playerLayer.getObjects().add(tmo);
 
         if(!(CacheForPoke.getInstance().getPostOffice() instanceof Server)){
-            player = new Player(this, map.getMap(), tmo, 55, 9);
+            player = new Player(this, map, tmo, 55, 9);
             player.setName("egal");
         }else{
-            player = new Player(this, map.getMap(), tmo, 54, 8);
+            player = new Player(this, map, tmo, 54, 8);
         }
 
         player.setAnimationSet(new AnimationSet(
@@ -116,10 +118,10 @@ public @Data class GameScreen implements Screen {
     }
 
     public void setMap(String mapName, Direction facing, int doorId) {
-        playerLayer = map.getMap().getLayers().get("Entity Layer");
         map = new Map();
         map.setName(mapName);
-        map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName));
+        map.setMap(CacheForPoke.getInstance().getActiveWorld().getMaps().get(mapName).getMap());
+        playerLayer = map.getMap().getLayers().get("Entity Layer");
         renderer = new OrthogonalTiledMapRendererWithSprites(map.getMap(), pokemon.getBatch());
         initControllers();
         
@@ -134,6 +136,7 @@ public @Data class GameScreen implements Screen {
         }
 
         player.setFacing(facing);
+        player.setMap(map);
     }
 
     private void initControllers() {
@@ -262,7 +265,7 @@ public @Data class GameScreen implements Screen {
             TextureAtlas atlas = pokemon.getAssetManager().get("atlas/player_sprites.atlas", TextureAtlas.class);
             TextureRegion textureRegion = new TextureRegion(atlas.findRegion(color + "_stand_south").getTexture(), Global.TILE_SIZE, (int) (1.5 * Global.TILE_SIZE));
             //maps/Prämap/maps/
-            Player player = new Player(null, map.getMap(), new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
+            Player player = new Player(null, map, new TextureMapObject(textureRegion),mapJoinEvent.getPosition().getX() / Global.TILE_SIZE, mapJoinEvent.getPosition().getY()/ Global.TILE_SIZE);
             CacheForPoke.getInstance().getPlayers().put(mapJoinEvent.getName(), player);
             player.setName(mapJoinEvent.getName());
             player.setAnimationSet(new AnimationSet(
