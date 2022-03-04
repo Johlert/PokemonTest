@@ -18,6 +18,7 @@ import com.pokemon.model.CacheForPoke;
 import com.pokemon.model.Networking.Client;
 import com.pokemon.model.Networking.Server;
 import com.pokemon.view.Pokemon;
+import com.pokemon.view.screens.game.BattleScreen;
 import com.pokemon.view.screens.game.GameScreen;
 
 import java.io.File;
@@ -94,7 +95,11 @@ public class MainMenuScreen implements Screen {
         settingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                System.out.println("batteling");
+                CacheForPoke.getInstance().setPostOffice(new Server());
+                CacheForPoke.getInstance().loadMaps(new File("core/assets/maps/Prämap/maps"));
+                pokemon.setScreen(new GameScreen(pokemon, CacheForPoke.getInstance().getActiveWorld().getActiveMap().getMap()));
+                pokemon.setScreen(new BattleScreen(pokemon));
             }
         });
         quitButton.addListener(new ClickListener() {
