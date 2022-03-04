@@ -14,5 +14,4 @@ public class Inventory implements Serializable {
     public Inventory(){
         
     }
-    //todo
 }
