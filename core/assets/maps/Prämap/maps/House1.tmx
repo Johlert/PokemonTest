@@ -96,12 +96,12 @@
     <property name="map" value="PRZCITY"/>
    </properties>
   </object>
-  <object id="2" type="Dialogue" x="16" y="96" width="16" height="16">
+  <object id="2" name="dialogue" type="Dialogue" x="16" y="96" width="16" height="16">
    <properties>
     <property name="dialogue" value="I wonder when our grandkids will visit."/>
    </properties>
   </object>
-  <object id="4" type="Dialogue" x="32" y="96" width="16" height="16">
+  <object id="4" name="dialogue" type="Dialogue" x="32" y="96" width="16" height="16">
    <properties>
     <property name="dialogue">I really don't like my wifes cooking...
 I don't know how to tell her...</property>

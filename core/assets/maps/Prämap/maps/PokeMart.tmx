@@ -91,12 +91,12 @@
     <property name="map" value="PRZCITY"/>
    </properties>
   </object>
-  <object id="2" type="Dialogue" x="48" y="64" width="16" height="16">
+  <object id="2" name="dialogue" type="Dialogue" x="48" y="64" width="16" height="16">
    <properties>
     <property name="dialogue" value="I hope you find what you are looking for."/>
    </properties>
   </object>
-  <object id="4" type="Dialogue" x="160" y="96" width="16" height="16">
+  <object id="4" name="dialogue" type="Dialogue" x="160" y="96" width="16" height="16">
    <properties>
     <property name="dialogue">Make sure to stock up on potions.
 You might need them later.</property>
